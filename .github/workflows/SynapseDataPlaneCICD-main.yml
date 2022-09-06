@@ -1,0 +1,35 @@
+name: SynapseDataPlaneCICD
+on:
+  [ workflow_dispatch ]
+  # push:
+  #   branches: [workspace_publish, main]
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: 'xiaoyuanzi1230/AzureSynapseWorkspaceCICD'
+          ref: 'main'
+      - uses: Azure/Synapse-workspace-deployment@V1.7.0
+        with:
+          TargetWorkspaceName: 'yuanxiadevopsasadev02'
+          ArtifactsFolder: './yuanxiadevopsasadev01'
+          operation: 'validate'
+      - uses: actions/checkout@v3
+        with:
+          repository: 'xiaoyuanzi1230/AzureSynapseWorkspaceCICD'
+          ref: 'workspace_publish'
+      - uses: Azure/Synapse-workspace-deployment@V1.7.0
+        with:
+          TargetWorkspaceName: 'yuanxiadevopsasadev02'
+          TemplateFile: './yuanxiadevopsasadev01/TemplateForWorkspace.json'
+          ParametersFile: './yuanxiadevopsasadev01/TemplateParametersForWorkspace.json'
+          OverrideArmParameters: './yuanxiadevopsasadev01/OverrideParam.yml'
+          environment: 'Azure Public'
+          resourceGroup: 'yuanxia-rg-devops-sea-01'
+          clientId: ${{ secrets.AZURESPCLIENTID }}
+          clientSecret: ${{ secrets.AZURESPSEC }}
+          subscriptionId: ${{ secrets.AZURESUBID }}
+          tenantId: ${{ secrets.TENANTID }}
+          operation: 'deploy'
