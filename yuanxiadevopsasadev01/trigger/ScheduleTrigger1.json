@@ -1,0 +1,17 @@
+{
+	"name": "ScheduleTrigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 1,
+				"startTime": "2022-09-06T08:31:00",
+				"timeZone": "China Standard Time"
+			}
+		}
+	}
+}

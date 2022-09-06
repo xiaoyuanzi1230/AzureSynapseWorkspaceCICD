@@ -1,0 +1,14 @@
+{
+	"name": "IncreasedMaxWriteSize",
+	"properties": {
+		"configs": {
+			"spark.rpc.message.maxSize": "1024"
+		},
+		"created": "2022-08-18T05:05:44.478Z",
+		"createdBy": "yuanxia@microsoft.com",
+		"annotations": [],
+		"configMergeRule": {
+			"artifact.currentOperation.spark.rpc.message.maxSize": "replace"
+		}
+	}
+}
