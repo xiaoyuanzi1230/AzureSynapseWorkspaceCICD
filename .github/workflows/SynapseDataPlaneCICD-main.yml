@@ -28,8 +28,8 @@ jobs:
           OverrideArmParameters: './yuanxiadevopsasadev01/OverrideParam.yml'
           environment: 'Azure Public'
           resourceGroup: 'yuanxia-rg-devops-sea-01'
-          clientId: ${{ secrets.AZURESPCLIENTID }}
-          clientSecret: ${{ secrets.AZURESPSEC }}
-          subscriptionId: ${{ secrets.AZURESUBID }}
+          clientId: ${{ secrets.AZSPCLIENTID }}
+          clientSecret: ${{ secrets.AZSPSEC }}
+          subscriptionId: ${{ secrets.AZSUBID }}
           tenantId: ${{ secrets.TENANTID }}
           operation: 'deploy'
