@@ -18,6 +18,59 @@
 		"yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'yuanxiadevopsasadev01-WorkspaceDefaultSqlServer'"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"type": "secureString",
+			"metadata": "Secure string for 'baseUrl' of 'AzureKeyVault1'"
+		},
+		"yuanxiadevopsasadev01AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"type": "secureString",
+			"metadata": "Secure string for 'baseUrl' of 'yuanxiadevopsasadev01AzureKeyVault1'"
+		},
+		"ScheduleTrigger1_freq": {
+			"type": "string",
+			"defaultValue": "Hour"
+		},
+		"ScheduleTrigger1_properties_typeProperties_recurrence_triggerSuffix": {
+			"type": "int",
+			"defaultValue": 1
+		},
+		"ScheduleTrigger1_properties_typeProperties_recurrence_startTime": {
+			"type": "string",
+			"defaultValue": "2022-09-06T08:31:00"
+		},
+		"ScheduleTrigger1_properties_typeProperties_recurrence_timeZone": {
+			"type": "string",
+			"defaultValue": "China Standard Time"
+		},
+		"AutoResolveIntegrationRuntime_properties_typeProperties_computeProperties": {
+			"type": "object",
+			"defaultValue": {
+				"location": "AutoResolve",
+				"dataFlowProperties": {
+					"computeType": "General",
+					"coreCount": 8,
+					"timeToLive": 0
+				}
+			}
+		},
+		"yuanxiadevopsasadev01-azureir01_properties_typeProperties_computeProperties": {
+			"type": "object",
+			"defaultValue": {
+				"location": "AutoResolve",
+				"dataFlowProperties": {
+					"computeType": "MemoryOptimized",
+					"coreCount": 8,
+					"timeToLive": 10,
+					"cleanup": false
+				}
+			}
+		},
+		"SQL script 1_properties_content_currentConnection_databaseName": {
+			"type": "string"
+		},
+		"SQL script 1_properties_content_currentConnection_poolName": {
+			"type": "string"
 		}
 	},
 	"variables": {
@@ -317,7 +370,7 @@
 				"annotations": [],
 				"type": "AzureKeyVault",
 				"typeProperties": {
-					"baseUrl": "https://yuanxiadevopsavk01.vault.azure.net/"
+					"baseUrl": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
 				}
 			},
 			"dependsOn": []
@@ -330,10 +383,7 @@
 				"annotations": [],
 				"type": "AzureSqlDW",
 				"typeProperties": {
-					"connectionString": {
-						"type": "SecureString",
-						"value": "[parameters('AzureSynapseAnalytics1_connectionString')]"
-					}
+					"connectionString": "[parameters('AzureSynapseAnalytics1_connectionString')]"
 				},
 				"connectVia": {
 					"referenceName": "AutoResolveIntegrationRuntime",
@@ -358,10 +408,7 @@
 				"annotations": [],
 				"type": "AzureSqlDW",
 				"typeProperties": {
-					"connectionString": {
-						"type": "SecureString",
-						"value": "[parameters('SynapseServerlessSQLView_connectionString')]"
-					}
+					"connectionString": "[parameters('SynapseServerlessSQLView_connectionString')]"
 				},
 				"connectVia": {
 					"referenceName": "AutoResolveIntegrationRuntime",
@@ -385,10 +432,7 @@
 				"annotations": [],
 				"type": "AzureSqlDW",
 				"typeProperties": {
-					"connectionString": {
-						"type": "SecureString",
-						"value": "[parameters('yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString')]"
-					}
+					"connectionString": "[parameters('yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString')]"
 				},
 				"connectVia": {
 					"referenceName": "AutoResolveIntegrationRuntime",
@@ -426,7 +470,7 @@
 				"annotations": [],
 				"type": "AzureKeyVault",
 				"typeProperties": {
-					"baseUrl": "https://yuanxiadevopsavk01.vault.azure.net/"
+					"baseUrl": "[parameters('yuanxiadevopsasadev01AzureKeyVault1_properties_typeProperties_baseUrl')]"
 				}
 			},
 			"dependsOn": []
@@ -442,10 +486,10 @@
 				"type": "ScheduleTrigger",
 				"typeProperties": {
 					"recurrence": {
-						"frequency": "Hour",
-						"interval": 1,
-						"startTime": "2022-09-06T08:31:00",
-						"timeZone": "China Standard Time"
+						"frequency": "[parameters('ScheduleTrigger1_freq')]",
+						"interval": "[parameters('ScheduleTrigger1_properties_typeProperties_recurrence_triggerSuffix')]",
+						"startTime": "[parameters('ScheduleTrigger1_properties_typeProperties_recurrence_startTime')]",
+						"timeZone": "[parameters('ScheduleTrigger1_properties_typeProperties_recurrence_timeZone')]"
 					}
 				}
 			},
@@ -458,14 +502,7 @@
 			"properties": {
 				"type": "Managed",
 				"typeProperties": {
-					"computeProperties": {
-						"location": "AutoResolve",
-						"dataFlowProperties": {
-							"computeType": "General",
-							"coreCount": 8,
-							"timeToLive": 0
-						}
-					}
+					"computeProperties": "[parameters('AutoResolveIntegrationRuntime_properties_typeProperties_computeProperties')]"
 				}
 			},
 			"dependsOn": []
@@ -477,15 +514,7 @@
 			"properties": {
 				"type": "Managed",
 				"typeProperties": {
-					"computeProperties": {
-						"location": "AutoResolve",
-						"dataFlowProperties": {
-							"computeType": "MemoryOptimized",
-							"coreCount": 8,
-							"timeToLive": 10,
-							"cleanup": false
-						}
-					}
+					"computeProperties": "[parameters('yuanxiadevopsasadev01-azureir01_properties_typeProperties_computeProperties')]"
 				}
 			},
 			"dependsOn": []
@@ -511,8 +540,8 @@
 						"language": "sql"
 					},
 					"currentConnection": {
-						"databaseName": "yuanxiadw01",
-						"poolName": "yuanxiadw01"
+						"databaseName": "[parameters('SQL script 1_properties_content_currentConnection_databaseName')]",
+						"poolName": "[parameters('SQL script 1_properties_content_currentConnection_poolName')]"
 					},
 					"resultLimit": 5000
 				},

@@ -13,6 +13,51 @@
 		},
 		"yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": ""
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": ""
+		},
+		"yuanxiadevopsasadev01AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": ""
+		},
+		"ScheduleTrigger1_freq": {
+			"value": "Hour"
+		},
+		"ScheduleTrigger1_properties_typeProperties_recurrence_triggerSuffix": {
+			"value": 1
+		},
+		"ScheduleTrigger1_properties_typeProperties_recurrence_startTime": {
+			"value": "2022-09-06T08:31:00"
+		},
+		"ScheduleTrigger1_properties_typeProperties_recurrence_timeZone": {
+			"value": "China Standard Time"
+		},
+		"AutoResolveIntegrationRuntime_properties_typeProperties_computeProperties": {
+			"value": {
+				"location": "AutoResolve",
+				"dataFlowProperties": {
+					"computeType": "General",
+					"coreCount": 8,
+					"timeToLive": 0
+				}
+			}
+		},
+		"yuanxiadevopsasadev01-azureir01_properties_typeProperties_computeProperties": {
+			"value": {
+				"location": "AutoResolve",
+				"dataFlowProperties": {
+					"computeType": "MemoryOptimized",
+					"coreCount": 8,
+					"timeToLive": 10,
+					"cleanup": false
+				}
+			}
+		},
+		"SQL script 1_properties_content_currentConnection_databaseName": {
+			"value": ""
+		},
+		"SQL script 1_properties_content_currentConnection_poolName": {
+			"value": ""
 		}
 	}
 }
