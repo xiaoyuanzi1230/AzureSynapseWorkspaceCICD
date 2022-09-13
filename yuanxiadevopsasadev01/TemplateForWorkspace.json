@@ -649,6 +649,212 @@
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/linkedServices/AzureSynapseAnalytics1')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Pipeline 3')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.json",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "SqlPoolSink",
+								"writeBehavior": "Insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate"
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SqlPoolTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/Json1')]",
+				"[concat(variables('workspaceId'), '/datasets/SqlPoolTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SqlPoolTable1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "SqlPoolTable",
+				"schema": [
+					{
+						"name": "DateID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "MedallionID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HackneyLicenseID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PickupTimeID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DropoffTimeID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PickupGeographyID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DropoffGeographyID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PickupLatitude",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "PickupLongitude",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "PickupLatLong",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DropoffLatitude",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "DropoffLongitude",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "DropoffLatLong",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PassengerCount",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TripDurationSeconds",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TripDistanceMiles",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "PaymentType",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FareAmount",
+						"type": "decimal",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "SurchargeAmount",
+						"type": "decimal",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TaxAmount",
+						"type": "decimal",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TipAmount",
+						"type": "decimal",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TollsAmount",
+						"type": "decimal",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TotalAmount",
+						"type": "decimal",
+						"precision": 19,
+						"scale": 4
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "jsonsinktable01"
+				},
+				"sqlPool": {
+					"referenceName": "yuanxiadw01",
+					"type": "SqlPoolReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/sqlPools/yuanxiadw01')]"
+			]
 		}
 	]
 }
