@@ -11,6 +11,9 @@
 		"yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": ""
 		},
+		"AzureSynapseAnalytics1_connectionString": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://yuanxiadevopsstorage01.dfs.core.windows.net/"
 		},
