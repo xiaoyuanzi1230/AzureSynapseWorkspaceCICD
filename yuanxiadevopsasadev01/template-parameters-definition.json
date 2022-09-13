@@ -1,8 +1,8 @@
 {
     "Microsoft.Synapse/workspaces/datasets": {
         "properties": {
-            "typeProperties": {
-                "*": "="
+            "sqlPool": {
+                "*": "-"
             }
         }
     }
