@@ -5,26 +5,14 @@
 		"workspaceName": {
 			"value": "yuanxiadevopsasadev01"
 		},
+		"AzureSynapseAnalytics1_connectionString": {
+			"value": ""
+		},
 		"SynapseServerlessSQLView_connectionString": {
 			"value": ""
 		},
 		"yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": ""
-		},
-		"AzureSynapseAnalytics1_connectionString": {
-			"value": ""
-		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
-			"value": "https://yuanxiadevopsstorage01.dfs.core.windows.net/"
-		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
-			"value": "https://yuanxiadevopsavk01.vault.azure.net/"
-		},
-		"yuanxiadevopsasadev01-WorkspaceDefaultStorage_properties_typeProperties_url": {
-			"value": "https://yuanxiadevopsstorage01.dfs.core.windows.net"
-		},
-		"yuanxiadevopsasadev01AzureKeyVault1_properties_typeProperties_baseUrl": {
-			"value": "https://yuanxiadevopsavk01.vault.azure.net/"
 		}
 	}
 }
