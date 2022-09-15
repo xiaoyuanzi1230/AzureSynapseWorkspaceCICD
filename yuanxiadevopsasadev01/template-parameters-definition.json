@@ -77,15 +77,15 @@
     },
     "Microsoft.Synapse/workspaces/datasets": {
         "properties": {
-            "typeProperties": {
-                "*": "="
+            "sqlPool": {
+                "*": "-"
             }
         }
     },
     "Microsoft.Synapse/workspaces/credentials" : {
         "properties": {
-            "sqlPool": {
-                "*": "-"
+            "typeProperties": {
+                "resourceId": "="
             }
         }
     }
