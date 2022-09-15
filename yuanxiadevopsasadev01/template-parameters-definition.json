@@ -19,7 +19,7 @@
         "properties": {
             "activities": [{
                 "sqlPool": {
-                    "*": "-"
+                    "referenceName": "-"
                 }
             }]
         }
