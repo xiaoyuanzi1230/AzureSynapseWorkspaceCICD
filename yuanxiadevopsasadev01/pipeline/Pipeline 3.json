@@ -28,10 +28,13 @@
 						}
 					},
 					"sink": {
-						"type": "SqlPoolSink",
-						"writeBehavior": "Insert",
-						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate"
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
 					},
 					"enableStaging": false
 				},
@@ -43,7 +46,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SqlPoolTable1",
+						"referenceName": "Json1",
 						"type": "DatasetReference"
 					}
 				]
