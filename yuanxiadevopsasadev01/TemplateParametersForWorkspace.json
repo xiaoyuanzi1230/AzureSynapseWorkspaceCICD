@@ -14,97 +14,10 @@
 		"yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": ""
 		},
-		"Pipeline 1_properties_0_name": {
+		"Pipeline 4_properties_0_sqlPool_referenceName": {
 			"value": ""
 		},
-		"Pipeline 1_properties_0_type": {
-			"value": ""
-		},
-		"Pipeline 1_properties_0_dependsOn": {
-			"value": ""
-		},
-		"Pipeline 1_properties_0_policy": {
-			"value": ""
-		},
-		"Pipeline 1_properties_0_userProperties": {
-			"value": ""
-		},
-		"Pipeline 1_properties_0_typeProperties": {
-			"value": ""
-		},
-		"Pipeline 1_properties_0_inputs": {
-			"value": ""
-		},
-		"Pipeline 1_properties_0_outputs": {
-			"value": ""
-		},
-		"Pipeline 2_properties_0_name": {
-			"value": ""
-		},
-		"Pipeline 2_properties_0_type": {
-			"value": ""
-		},
-		"Pipeline 2_properties_0_dependsOn": {
-			"value": ""
-		},
-		"Pipeline 2_properties_0_policy": {
-			"value": ""
-		},
-		"Pipeline 2_properties_0_userProperties": {
-			"value": ""
-		},
-		"Pipeline 2_properties_0_typeProperties": {
-			"value": ""
-		},
-		"Pipeline 2_properties_0_inputs": {
-			"value": ""
-		},
-		"Pipeline 2_properties_0_outputs": {
-			"value": ""
-		},
-		"Pipeline 3_properties_0_name": {
-			"value": ""
-		},
-		"Pipeline 3_properties_0_type": {
-			"value": ""
-		},
-		"Pipeline 3_properties_0_dependsOn": {
-			"value": ""
-		},
-		"Pipeline 3_properties_0_policy": {
-			"value": ""
-		},
-		"Pipeline 3_properties_0_userProperties": {
-			"value": ""
-		},
-		"Pipeline 3_properties_0_typeProperties": {
-			"value": ""
-		},
-		"Pipeline 3_properties_0_inputs": {
-			"value": ""
-		},
-		"Pipeline 3_properties_0_outputs": {
-			"value": ""
-		},
-		"Pipeline 4_properties_0_name": {
-			"value": ""
-		},
-		"Pipeline 4_properties_0_type": {
-			"value": ""
-		},
-		"Pipeline 4_properties_0_dependsOn": {
-			"value": ""
-		},
-		"Pipeline 4_properties_0_policy": {
-			"value": ""
-		},
-		"Pipeline 4_properties_0_userProperties": {
-			"value": ""
-		},
-		"Pipeline 4_properties_0_sqlPool": {
-			"value": ""
-		},
-		"Pipeline 4_properties_0_typeProperties": {
+		"Pipeline 4_properties_0_sqlPool_type": {
 			"value": ""
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {

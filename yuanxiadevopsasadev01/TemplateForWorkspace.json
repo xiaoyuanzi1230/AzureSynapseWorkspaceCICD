@@ -19,98 +19,11 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'yuanxiadevopsasadev01-WorkspaceDefaultSqlServer'"
 		},
-		"Pipeline 1_properties_0_name": {
+		"Pipeline 4_properties_0_sqlPool_referenceName": {
 			"type": "string"
 		},
-		"Pipeline 1_properties_0_type": {
+		"Pipeline 4_properties_0_sqlPool_type": {
 			"type": "string"
-		},
-		"Pipeline 1_properties_0_dependsOn": {
-			"type": "array"
-		},
-		"Pipeline 1_properties_0_policy": {
-			"type": "object"
-		},
-		"Pipeline 1_properties_0_userProperties": {
-			"type": "array"
-		},
-		"Pipeline 1_properties_0_typeProperties": {
-			"type": "object"
-		},
-		"Pipeline 1_properties_0_inputs": {
-			"type": "array"
-		},
-		"Pipeline 1_properties_0_outputs": {
-			"type": "array"
-		},
-		"Pipeline 2_properties_0_name": {
-			"type": "string"
-		},
-		"Pipeline 2_properties_0_type": {
-			"type": "string"
-		},
-		"Pipeline 2_properties_0_dependsOn": {
-			"type": "array"
-		},
-		"Pipeline 2_properties_0_policy": {
-			"type": "object"
-		},
-		"Pipeline 2_properties_0_userProperties": {
-			"type": "array"
-		},
-		"Pipeline 2_properties_0_typeProperties": {
-			"type": "object"
-		},
-		"Pipeline 2_properties_0_inputs": {
-			"type": "array"
-		},
-		"Pipeline 2_properties_0_outputs": {
-			"type": "array"
-		},
-		"Pipeline 3_properties_0_name": {
-			"type": "string"
-		},
-		"Pipeline 3_properties_0_type": {
-			"type": "string"
-		},
-		"Pipeline 3_properties_0_dependsOn": {
-			"type": "array"
-		},
-		"Pipeline 3_properties_0_policy": {
-			"type": "object"
-		},
-		"Pipeline 3_properties_0_userProperties": {
-			"type": "array"
-		},
-		"Pipeline 3_properties_0_typeProperties": {
-			"type": "object"
-		},
-		"Pipeline 3_properties_0_inputs": {
-			"type": "array"
-		},
-		"Pipeline 3_properties_0_outputs": {
-			"type": "array"
-		},
-		"Pipeline 4_properties_0_name": {
-			"type": "string"
-		},
-		"Pipeline 4_properties_0_type": {
-			"type": "string"
-		},
-		"Pipeline 4_properties_0_dependsOn": {
-			"type": "array"
-		},
-		"Pipeline 4_properties_0_policy": {
-			"type": "object"
-		},
-		"Pipeline 4_properties_0_userProperties": {
-			"type": "array"
-		},
-		"Pipeline 4_properties_0_sqlPool": {
-			"type": "object"
-		},
-		"Pipeline 4_properties_0_typeProperties": {
-			"type": "object"
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "secureString",
@@ -177,14 +90,55 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "[parameters('Pipeline 1_properties_0_name')]",
-						"type": "[parameters('Pipeline 1_properties_0_type')]",
-						"dependsOn": "[parameters('Pipeline 1_properties_0_dependsOn')]",
-						"policy": "[parameters('Pipeline 1_properties_0_policy')]",
-						"userProperties": "[parameters('Pipeline 1_properties_0_userProperties')]",
-						"typeProperties": "[parameters('Pipeline 1_properties_0_typeProperties')]",
-						"inputs": "[parameters('Pipeline 1_properties_0_inputs')]",
-						"outputs": "[parameters('Pipeline 1_properties_0_outputs')]"
+						"name": "Copy data Debug",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.json",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -205,14 +159,53 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "[parameters('Pipeline 2_properties_0_name')]",
-						"type": "[parameters('Pipeline 2_properties_0_type')]",
-						"dependsOn": "[parameters('Pipeline 2_properties_0_dependsOn')]",
-						"policy": "[parameters('Pipeline 2_properties_0_policy')]",
-						"userProperties": "[parameters('Pipeline 2_properties_0_userProperties')]",
-						"typeProperties": "[parameters('Pipeline 2_properties_0_typeProperties')]",
-						"inputs": "[parameters('Pipeline 2_properties_0_inputs')]",
-						"outputs": "[parameters('Pipeline 2_properties_0_outputs')]"
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.json",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "SqlDWSink",
+								"writeBehavior": "Insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSynapseAnalyticsTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -233,14 +226,52 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "[parameters('Pipeline 3_properties_0_name')]",
-						"type": "[parameters('Pipeline 3_properties_0_type')]",
-						"dependsOn": "[parameters('Pipeline 3_properties_0_dependsOn')]",
-						"policy": "[parameters('Pipeline 3_properties_0_policy')]",
-						"userProperties": "[parameters('Pipeline 3_properties_0_userProperties')]",
-						"typeProperties": "[parameters('Pipeline 3_properties_0_typeProperties')]",
-						"inputs": "[parameters('Pipeline 3_properties_0_inputs')]",
-						"outputs": "[parameters('Pipeline 3_properties_0_outputs')]"
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.json",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "SqlPoolSink",
+								"writeBehavior": "Insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate"
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SqlPoolTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -261,13 +292,24 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "[parameters('Pipeline 4_properties_0_name')]",
-						"type": "[parameters('Pipeline 4_properties_0_type')]",
-						"dependsOn": "[parameters('Pipeline 4_properties_0_dependsOn')]",
-						"policy": "[parameters('Pipeline 4_properties_0_policy')]",
-						"userProperties": "[parameters('Pipeline 4_properties_0_userProperties')]",
-						"sqlPool": "[parameters('Pipeline 4_properties_0_sqlPool')]",
-						"typeProperties": "[parameters('Pipeline 4_properties_0_typeProperties')]"
+						"name": "SQL pool stored procedure1",
+						"type": "SqlPoolStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.00:30:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"sqlPool": {
+							"referenceName": "[parameters('Pipeline 4_properties_0_sqlPool_referenceName')]",
+							"type": "[parameters('Pipeline 4_properties_0_sqlPool_type')]"
+						},
+						"typeProperties": {
+							"storedProcedureName": "[dbo].[sp_pipltest01]"
+						}
 					}
 				],
 				"policy": {
@@ -277,7 +319,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/sqlPools/yuanxiadw01')]"
+				"[concat(variables('workspaceId'), '/sqlPools/', parameters('Pipeline 4_properties_0_sqlPool_referenceName'))]"
 			]
 		},
 		{
