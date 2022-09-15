@@ -78,7 +78,7 @@
     "Microsoft.Synapse/workspaces/datasets": {
         "properties": {
             "sqlPool": {
-                "*": "-"
+                "referenceName": "-"
             }
         }
     },
