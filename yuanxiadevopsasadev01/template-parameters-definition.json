@@ -84,8 +84,8 @@
     },
     "Microsoft.Synapse/workspaces/credentials" : {
         "properties": {
-            "typeProperties": {
-                "resourceId": "="
+            "sqlPool": {
+                "*": "-"
             }
         }
     }
