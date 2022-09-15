@@ -248,10 +248,13 @@
 								}
 							},
 							"sink": {
-								"type": "SqlPoolSink",
-								"writeBehavior": "Insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate"
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
 							},
 							"enableStaging": false
 						},
@@ -264,7 +267,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "SqlPoolTable1",
+								"referenceName": "Json1",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -278,8 +281,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/datasets/Json1')]",
-				"[concat(variables('workspaceId'), '/datasets/SqlPoolTable1')]"
+				"[concat(variables('workspaceId'), '/datasets/Json1')]"
 			]
 		},
 		{
@@ -360,27 +362,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/SqlPoolTable1')]",
-			"type": "Microsoft.Synapse/workspaces/datasets",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": [],
-				"type": "SqlPoolTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "jsonsinktable01"
-				},
-				"sqlPool": {
-					"referenceName": "yuanxiadw01",
-					"type": "SqlPoolReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/sqlPools/yuanxiadw01')]"
 			]
 		},
 		{
