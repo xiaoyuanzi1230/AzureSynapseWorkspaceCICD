@@ -19,6 +19,36 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'yuanxiadevopsasadev01-WorkspaceDefaultSqlServer'"
 		},
+		"Pipeline 1_properties_activities": {
+			"type": "array"
+		},
+		"Pipeline 1_properties_policy": {
+			"type": "object"
+		},
+		"Pipeline 1_properties_annotations": {
+			"type": "array"
+		},
+		"Pipeline 1_properties_lastPublishTime": {
+			"type": "string"
+		},
+		"Pipeline 2_properties_activities": {
+			"type": "array"
+		},
+		"Pipeline 2_properties_policy": {
+			"type": "object"
+		},
+		"Pipeline 2_properties_annotations": {
+			"type": "array"
+		},
+		"Pipeline 3_properties_activities": {
+			"type": "array"
+		},
+		"Pipeline 3_properties_policy": {
+			"type": "object"
+		},
+		"Pipeline 3_properties_annotations": {
+			"type": "array"
+		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "secureString",
 			"metadata": "Secure string for 'baseUrl' of 'AzureKeyVault1'"
@@ -82,65 +112,10 @@
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
-				"activities": [
-					{
-						"name": "Copy data Debug",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"wildcardFileName": "*.json",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "Json1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "Json1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-09-05T07:05:02Z"
+				"activities": "[parameters('Pipeline 1_properties_activities')]",
+				"policy": "[parameters('Pipeline 1_properties_policy')]",
+				"annotations": "[parameters('Pipeline 1_properties_annotations')]",
+				"lastPublishTime": "[parameters('Pipeline 1_properties_lastPublishTime')]"
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/Json1')]"
@@ -151,62 +126,9 @@
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"wildcardFileName": "*.json",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							},
-							"sink": {
-								"type": "SqlDWSink",
-								"writeBehavior": "Insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "Json1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "AzureSynapseAnalyticsTable1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
+				"activities": "[parameters('Pipeline 2_properties_activities')]",
+				"policy": "[parameters('Pipeline 2_properties_policy')]",
+				"annotations": "[parameters('Pipeline 2_properties_annotations')]"
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/Json1')]",
@@ -218,61 +140,9 @@
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"wildcardFileName": "*.json",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							},
-							"sink": {
-								"type": "SqlPoolSink",
-								"writeBehavior": "Insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate"
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "Json1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "SqlPoolTable1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
+				"activities": "[parameters('Pipeline 3_properties_activities')]",
+				"policy": "[parameters('Pipeline 3_properties_policy')]",
+				"annotations": "[parameters('Pipeline 3_properties_annotations')]"
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/Json1')]",
