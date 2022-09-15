@@ -19,44 +19,98 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'yuanxiadevopsasadev01-WorkspaceDefaultSqlServer'"
 		},
-		"Pipeline 1_properties_activities": {
-			"type": "array"
-		},
-		"Pipeline 1_properties_policy": {
-			"type": "object"
-		},
-		"Pipeline 1_properties_annotations": {
-			"type": "array"
-		},
-		"Pipeline 1_properties_lastPublishTime": {
+		"Pipeline 1_properties_0_name": {
 			"type": "string"
 		},
-		"Pipeline 2_properties_activities": {
+		"Pipeline 1_properties_0_type": {
+			"type": "string"
+		},
+		"Pipeline 1_properties_0_dependsOn": {
 			"type": "array"
 		},
-		"Pipeline 2_properties_policy": {
+		"Pipeline 1_properties_0_policy": {
 			"type": "object"
 		},
-		"Pipeline 2_properties_annotations": {
+		"Pipeline 1_properties_0_userProperties": {
 			"type": "array"
 		},
-		"Pipeline 3_properties_activities": {
-			"type": "array"
-		},
-		"Pipeline 3_properties_policy": {
+		"Pipeline 1_properties_0_typeProperties": {
 			"type": "object"
 		},
-		"Pipeline 3_properties_annotations": {
+		"Pipeline 1_properties_0_inputs": {
 			"type": "array"
 		},
-		"Pipeline 4_properties_activities": {
+		"Pipeline 1_properties_0_outputs": {
 			"type": "array"
 		},
-		"Pipeline 4_properties_policy": {
+		"Pipeline 2_properties_0_name": {
+			"type": "string"
+		},
+		"Pipeline 2_properties_0_type": {
+			"type": "string"
+		},
+		"Pipeline 2_properties_0_dependsOn": {
+			"type": "array"
+		},
+		"Pipeline 2_properties_0_policy": {
 			"type": "object"
 		},
-		"Pipeline 4_properties_annotations": {
+		"Pipeline 2_properties_0_userProperties": {
 			"type": "array"
+		},
+		"Pipeline 2_properties_0_typeProperties": {
+			"type": "object"
+		},
+		"Pipeline 2_properties_0_inputs": {
+			"type": "array"
+		},
+		"Pipeline 2_properties_0_outputs": {
+			"type": "array"
+		},
+		"Pipeline 3_properties_0_name": {
+			"type": "string"
+		},
+		"Pipeline 3_properties_0_type": {
+			"type": "string"
+		},
+		"Pipeline 3_properties_0_dependsOn": {
+			"type": "array"
+		},
+		"Pipeline 3_properties_0_policy": {
+			"type": "object"
+		},
+		"Pipeline 3_properties_0_userProperties": {
+			"type": "array"
+		},
+		"Pipeline 3_properties_0_typeProperties": {
+			"type": "object"
+		},
+		"Pipeline 3_properties_0_inputs": {
+			"type": "array"
+		},
+		"Pipeline 3_properties_0_outputs": {
+			"type": "array"
+		},
+		"Pipeline 4_properties_0_name": {
+			"type": "string"
+		},
+		"Pipeline 4_properties_0_type": {
+			"type": "string"
+		},
+		"Pipeline 4_properties_0_dependsOn": {
+			"type": "array"
+		},
+		"Pipeline 4_properties_0_policy": {
+			"type": "object"
+		},
+		"Pipeline 4_properties_0_userProperties": {
+			"type": "array"
+		},
+		"Pipeline 4_properties_0_sqlPool": {
+			"type": "object"
+		},
+		"Pipeline 4_properties_0_typeProperties": {
+			"type": "object"
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "secureString",
@@ -121,10 +175,24 @@
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
-				"activities": "[parameters('Pipeline 1_properties_activities')]",
-				"policy": "[parameters('Pipeline 1_properties_policy')]",
-				"annotations": "[parameters('Pipeline 1_properties_annotations')]",
-				"lastPublishTime": "[parameters('Pipeline 1_properties_lastPublishTime')]"
+				"activities": [
+					{
+						"name": "[parameters('Pipeline 1_properties_0_name')]",
+						"type": "[parameters('Pipeline 1_properties_0_type')]",
+						"dependsOn": "[parameters('Pipeline 1_properties_0_dependsOn')]",
+						"policy": "[parameters('Pipeline 1_properties_0_policy')]",
+						"userProperties": "[parameters('Pipeline 1_properties_0_userProperties')]",
+						"typeProperties": "[parameters('Pipeline 1_properties_0_typeProperties')]",
+						"inputs": "[parameters('Pipeline 1_properties_0_inputs')]",
+						"outputs": "[parameters('Pipeline 1_properties_0_outputs')]"
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-09-05T07:05:02Z"
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/Json1')]"
@@ -135,9 +203,23 @@
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
-				"activities": "[parameters('Pipeline 2_properties_activities')]",
-				"policy": "[parameters('Pipeline 2_properties_policy')]",
-				"annotations": "[parameters('Pipeline 2_properties_annotations')]"
+				"activities": [
+					{
+						"name": "[parameters('Pipeline 2_properties_0_name')]",
+						"type": "[parameters('Pipeline 2_properties_0_type')]",
+						"dependsOn": "[parameters('Pipeline 2_properties_0_dependsOn')]",
+						"policy": "[parameters('Pipeline 2_properties_0_policy')]",
+						"userProperties": "[parameters('Pipeline 2_properties_0_userProperties')]",
+						"typeProperties": "[parameters('Pipeline 2_properties_0_typeProperties')]",
+						"inputs": "[parameters('Pipeline 2_properties_0_inputs')]",
+						"outputs": "[parameters('Pipeline 2_properties_0_outputs')]"
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/Json1')]",
@@ -149,9 +231,23 @@
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
-				"activities": "[parameters('Pipeline 3_properties_activities')]",
-				"policy": "[parameters('Pipeline 3_properties_policy')]",
-				"annotations": "[parameters('Pipeline 3_properties_annotations')]"
+				"activities": [
+					{
+						"name": "[parameters('Pipeline 3_properties_0_name')]",
+						"type": "[parameters('Pipeline 3_properties_0_type')]",
+						"dependsOn": "[parameters('Pipeline 3_properties_0_dependsOn')]",
+						"policy": "[parameters('Pipeline 3_properties_0_policy')]",
+						"userProperties": "[parameters('Pipeline 3_properties_0_userProperties')]",
+						"typeProperties": "[parameters('Pipeline 3_properties_0_typeProperties')]",
+						"inputs": "[parameters('Pipeline 3_properties_0_inputs')]",
+						"outputs": "[parameters('Pipeline 3_properties_0_outputs')]"
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/Json1')]",
@@ -163,9 +259,22 @@
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
-				"activities": "[parameters('Pipeline 4_properties_activities')]",
-				"policy": "[parameters('Pipeline 4_properties_policy')]",
-				"annotations": "[parameters('Pipeline 4_properties_annotations')]"
+				"activities": [
+					{
+						"name": "[parameters('Pipeline 4_properties_0_name')]",
+						"type": "[parameters('Pipeline 4_properties_0_type')]",
+						"dependsOn": "[parameters('Pipeline 4_properties_0_dependsOn')]",
+						"policy": "[parameters('Pipeline 4_properties_0_policy')]",
+						"userProperties": "[parameters('Pipeline 4_properties_0_userProperties')]",
+						"sqlPool": "[parameters('Pipeline 4_properties_0_sqlPool')]",
+						"typeProperties": "[parameters('Pipeline 4_properties_0_typeProperties')]"
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/sqlPools/yuanxiadw01')]"

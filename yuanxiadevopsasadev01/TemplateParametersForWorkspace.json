@@ -14,43 +14,97 @@
 		"yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": ""
 		},
-		"Pipeline 1_properties_activities": {
+		"Pipeline 1_properties_0_name": {
 			"value": ""
 		},
-		"Pipeline 1_properties_policy": {
+		"Pipeline 1_properties_0_type": {
 			"value": ""
 		},
-		"Pipeline 1_properties_annotations": {
+		"Pipeline 1_properties_0_dependsOn": {
 			"value": ""
 		},
-		"Pipeline 1_properties_lastPublishTime": {
+		"Pipeline 1_properties_0_policy": {
 			"value": ""
 		},
-		"Pipeline 2_properties_activities": {
+		"Pipeline 1_properties_0_userProperties": {
 			"value": ""
 		},
-		"Pipeline 2_properties_policy": {
+		"Pipeline 1_properties_0_typeProperties": {
 			"value": ""
 		},
-		"Pipeline 2_properties_annotations": {
+		"Pipeline 1_properties_0_inputs": {
 			"value": ""
 		},
-		"Pipeline 3_properties_activities": {
+		"Pipeline 1_properties_0_outputs": {
 			"value": ""
 		},
-		"Pipeline 3_properties_policy": {
+		"Pipeline 2_properties_0_name": {
 			"value": ""
 		},
-		"Pipeline 3_properties_annotations": {
+		"Pipeline 2_properties_0_type": {
 			"value": ""
 		},
-		"Pipeline 4_properties_activities": {
+		"Pipeline 2_properties_0_dependsOn": {
 			"value": ""
 		},
-		"Pipeline 4_properties_policy": {
+		"Pipeline 2_properties_0_policy": {
 			"value": ""
 		},
-		"Pipeline 4_properties_annotations": {
+		"Pipeline 2_properties_0_userProperties": {
+			"value": ""
+		},
+		"Pipeline 2_properties_0_typeProperties": {
+			"value": ""
+		},
+		"Pipeline 2_properties_0_inputs": {
+			"value": ""
+		},
+		"Pipeline 2_properties_0_outputs": {
+			"value": ""
+		},
+		"Pipeline 3_properties_0_name": {
+			"value": ""
+		},
+		"Pipeline 3_properties_0_type": {
+			"value": ""
+		},
+		"Pipeline 3_properties_0_dependsOn": {
+			"value": ""
+		},
+		"Pipeline 3_properties_0_policy": {
+			"value": ""
+		},
+		"Pipeline 3_properties_0_userProperties": {
+			"value": ""
+		},
+		"Pipeline 3_properties_0_typeProperties": {
+			"value": ""
+		},
+		"Pipeline 3_properties_0_inputs": {
+			"value": ""
+		},
+		"Pipeline 3_properties_0_outputs": {
+			"value": ""
+		},
+		"Pipeline 4_properties_0_name": {
+			"value": ""
+		},
+		"Pipeline 4_properties_0_type": {
+			"value": ""
+		},
+		"Pipeline 4_properties_0_dependsOn": {
+			"value": ""
+		},
+		"Pipeline 4_properties_0_policy": {
+			"value": ""
+		},
+		"Pipeline 4_properties_0_userProperties": {
+			"value": ""
+		},
+		"Pipeline 4_properties_0_sqlPool": {
+			"value": ""
+		},
+		"Pipeline 4_properties_0_typeProperties": {
 			"value": ""
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
