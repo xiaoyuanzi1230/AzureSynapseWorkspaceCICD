@@ -25,7 +25,7 @@ jobs:
           TargetWorkspaceName: 'yuanxiadevopsasadev02'
           TemplateFile: './yuanxiadevopsasadev01/TemplateForWorkspace.json'
           ParametersFile: './yuanxiadevopsasadev01/TemplateParametersForWorkspace.json'
-          OverrideArmParameters: './yuanxiadevopsasadev01/OverrideParam.yml'
+          OverrideArmParameters: './yuanxiadevopsasadev01/para-override.yml'
           environment: 'Azure Public'
           resourceGroup: 'yuanxia-rg-devops-sea-01'
           clientId: ${{ secrets.AZSPCLIENTID }}
