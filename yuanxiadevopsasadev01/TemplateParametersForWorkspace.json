@@ -17,9 +17,6 @@
 		"Pipeline 4_properties_0_sqlPool_referenceName": {
 			"value": ""
 		},
-		"Pipeline 4_properties_0_sqlPool_type": {
-			"value": ""
-		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"value": ""
 		},

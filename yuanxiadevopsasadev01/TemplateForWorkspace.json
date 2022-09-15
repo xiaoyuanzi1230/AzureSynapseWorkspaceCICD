@@ -22,9 +22,6 @@
 		"Pipeline 4_properties_0_sqlPool_referenceName": {
 			"type": "string"
 		},
-		"Pipeline 4_properties_0_sqlPool_type": {
-			"type": "string"
-		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "secureString",
 			"metadata": "Secure string for 'baseUrl' of 'AzureKeyVault1'"
@@ -305,7 +302,7 @@
 						"userProperties": [],
 						"sqlPool": {
 							"referenceName": "[parameters('Pipeline 4_properties_0_sqlPool_referenceName')]",
-							"type": "[parameters('Pipeline 4_properties_0_sqlPool_type')]"
+							"type": "SqlPoolReference"
 						},
 						"typeProperties": {
 							"storedProcedureName": "[dbo].[sp_pipltest01]"
