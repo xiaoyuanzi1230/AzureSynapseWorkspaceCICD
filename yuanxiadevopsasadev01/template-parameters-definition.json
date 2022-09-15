@@ -17,7 +17,9 @@
     },
     "Microsoft.Synapse/workspaces/pipelines": {
         "properties": {
-            "*": "-"
+            "activities": [{
+                "*": "-"
+            }]
         }
     },
     "Microsoft.Synapse/workspaces/integrationRuntimes": {
