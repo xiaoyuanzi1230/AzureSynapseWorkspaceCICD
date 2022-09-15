@@ -18,7 +18,9 @@
     "Microsoft.Synapse/workspaces/pipelines": {
         "properties": {
             "activities": [{
-                "*": "-"
+                "sqlPool": {
+                    "*": "-"
+                }
             }]
         }
     },
