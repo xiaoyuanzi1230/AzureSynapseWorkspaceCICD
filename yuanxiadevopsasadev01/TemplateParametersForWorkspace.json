@@ -44,6 +44,15 @@
 		"Pipeline 3_properties_annotations": {
 			"value": ""
 		},
+		"Pipeline 4_properties_activities": {
+			"value": ""
+		},
+		"Pipeline 4_properties_policy": {
+			"value": ""
+		},
+		"Pipeline 4_properties_annotations": {
+			"value": ""
+		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"value": ""
 		},

@@ -49,6 +49,15 @@
 		"Pipeline 3_properties_annotations": {
 			"type": "array"
 		},
+		"Pipeline 4_properties_activities": {
+			"type": "array"
+		},
+		"Pipeline 4_properties_policy": {
+			"type": "object"
+		},
+		"Pipeline 4_properties_annotations": {
+			"type": "array"
+		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "secureString",
 			"metadata": "Secure string for 'baseUrl' of 'AzureKeyVault1'"
@@ -147,6 +156,19 @@
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/Json1')]",
 				"[concat(variables('workspaceId'), '/datasets/SqlPoolTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Pipeline 4')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": "[parameters('Pipeline 4_properties_activities')]",
+				"policy": "[parameters('Pipeline 4_properties_policy')]",
+				"annotations": "[parameters('Pipeline 4_properties_annotations')]"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/sqlPools/yuanxiadw01')]"
 			]
 		},
 		{
