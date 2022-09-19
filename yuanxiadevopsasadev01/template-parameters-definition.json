@@ -76,11 +76,13 @@
         }
     },
     "Microsoft.Synapse/workspaces/datasets": {
-        "properties": {
-            "sqlPool": {
-                "referenceName": "-"
+        "*": {
+            "properties": {
+                "sqlPool": {
+                    "referenceName": "-"
+                    }
+                }
             }
-        }
     },
     "Microsoft.Synapse/workspaces/credentials" : {
         "properties": {
