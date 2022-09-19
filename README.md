@@ -67,7 +67,7 @@ Resources can only be found from **Synapse Studio**, like below screenshot:
  ┗ 📜README.md
 ```
 ## How it works
-We use a self-created GitHub Action workflow ymal file to do the Synapse Artifacts deployment. Related online doc about synapse workspace deployment extension:
+We use a self-created GitHub Action workflow ymal file to do the Synapse Artifacts deployment. Related online doc about synapse workspace deployment extension:     
 [Synapse workspace deployment · Actions · GitHub Marketplace](https://github.com/marketplace/actions/synapse-workspace-deployment)    
 
 Using this synapse workspace deployment extension, we can:
