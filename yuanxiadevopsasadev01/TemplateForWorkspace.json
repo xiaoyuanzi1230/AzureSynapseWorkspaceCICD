@@ -19,9 +19,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'yuanxiadevopsasadev01-WorkspaceDefaultSqlServer'"
 		},
-		"Pipeline 4_properties_0_sqlPool_referenceName": {
-			"type": "string"
-		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "secureString",
 			"metadata": "Secure string for 'baseUrl' of 'AzureKeyVault1'"
@@ -303,7 +300,7 @@
 						},
 						"userProperties": [],
 						"sqlPool": {
-							"referenceName": "[parameters('Pipeline 4_properties_0_sqlPool_referenceName')]",
+							"referenceName": "yuanxiadw01",
 							"type": "SqlPoolReference"
 						},
 						"typeProperties": {
@@ -318,7 +315,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/sqlPools/', parameters('Pipeline 4_properties_0_sqlPool_referenceName'))]"
+				"[concat(variables('workspaceId'), '/sqlPools/yuanxiadw01')]"
 			]
 		},
 		{
