@@ -1,0 +1,16 @@
+{
+	"name": "SqlPoolTable1",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "testt1"
+		},
+		"sqlPool": {
+			"referenceName": "yuanxiadw01",
+			"type": "SqlPoolReference"
+		}
+	}
+}
