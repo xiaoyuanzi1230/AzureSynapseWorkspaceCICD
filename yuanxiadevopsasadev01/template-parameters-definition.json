@@ -18,8 +18,16 @@
     "Microsoft.Synapse/workspaces/pipelines": {
         "properties": {
             "activities": [{
-                "sqlPool": {
-                    "referenceName": "-"
+                "typeProperties": {
+                    "waitTimeInSeconds": "-::int",
+                    "headers": "=::object",
+                    "activities": [
+                        {
+                            "typeProperties": {
+                                "url": "-:-webUrl:string"
+                            }
+                        }
+                    ]
                 }
             }]
         }
@@ -76,13 +84,13 @@
         }
     },
     "Microsoft.Synapse/workspaces/datasets": {
-        "*": {
+        "SqlPoolTable": {
             "properties": {
                 "sqlPool": {
                     "referenceName": "-"
-                    }
                 }
             }
+        }
     },
     "Microsoft.Synapse/workspaces/credentials" : {
         "properties": {
