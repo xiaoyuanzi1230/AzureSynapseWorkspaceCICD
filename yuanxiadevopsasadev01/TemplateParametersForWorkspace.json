@@ -14,6 +14,9 @@
 		"yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": ""
 		},
+		"SqlPoolTable1_properties_sqlPool_referenceName": {
+			"value": ""
+		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"value": ""
 		},
@@ -57,9 +60,6 @@
 			"value": ""
 		},
 		"SQL script 1_properties_content_currentConnection_poolName": {
-			"value": ""
-		},
-		"SqlPoolTable1_properties_sqlPool_referenceName": {
 			"value": ""
 		}
 	}

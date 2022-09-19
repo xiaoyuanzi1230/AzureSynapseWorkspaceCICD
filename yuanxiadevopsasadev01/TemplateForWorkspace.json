@@ -19,6 +19,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'yuanxiadevopsasadev01-WorkspaceDefaultSqlServer'"
 		},
+		"SqlPoolTable1_properties_sqlPool_referenceName": {
+			"type": "string"
+		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "secureString",
 			"metadata": "Secure string for 'baseUrl' of 'AzureKeyVault1'"
@@ -70,9 +73,6 @@
 			"type": "string"
 		},
 		"SQL script 1_properties_content_currentConnection_poolName": {
-			"type": "string"
-		},
-		"SqlPoolTable1_properties_sqlPool_referenceName": {
 			"type": "string"
 		}
 	},
@@ -362,6 +362,27 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SqlPoolTable1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "SqlPoolTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "testt1"
+				},
+				"sqlPool": {
+					"referenceName": "[parameters('SqlPoolTable1_properties_sqlPool_referenceName')]",
+					"type": "SqlPoolReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/sqlPools/', parameters('SqlPoolTable1_properties_sqlPool_referenceName'))]"
 			]
 		},
 		{
@@ -660,27 +681,6 @@
 			},
 			"dependsOn": [],
 			"location": "southeastasia"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/SqlPoolTable1')]",
-			"type": "Microsoft.Synapse/workspaces/datasets",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": [],
-				"type": "SqlPoolTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "testt1"
-				},
-				"sqlPool": {
-					"referenceName": "[parameters('SqlPoolTable1_properties_sqlPool_referenceName')]",
-					"type": "SqlPoolReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/sqlPools/', parameters('SqlPoolTable1_properties_sqlPool_referenceName'))]"
-			]
 		}
 	]
 }
