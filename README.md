@@ -9,7 +9,8 @@ In this current Git Repo, we will only focus on the deployment under **GitHub Ac
 
 ## Synapse CI/CD Overview
 
-**TBD**
+XMind workflow screenshot as below (Click the picture to have original ovew): 
+![Azure Synapse AnalyticsCICDOverview](res/img/Azure%20Synapse%20AnalyticsCICDOverview.png)
 
 ## What is Synapse Control Plane
 Resources can be found directly from **Azure Portal**, like below screenshot:   
@@ -22,13 +23,12 @@ Resources can only be found from **Synapse Studio**, like below screenshot:
 
 ## Resources in Git Repo
 ```
-📦AzureSynapseWorkspaceCICD
  ┣ 📂.github
  ┃ ┗ 📂workflows
  ┃ ┃ ┗ 📜SynapseDataPlaneCICD-main.yml
  ┣ 📂res
  ┃ ┗ 📂img
- ┃ ┃ ┣ 📜AzureSynapseAnalytics.png
+ ┃ ┃ ┣ 📜Azure Synapse AnalyticsCICDOverview.png
  ┃ ┃ ┣ 📜SynapseControlPlane.png
  ┃ ┃ ┗ 📜SynapseDataPlane.png
  ┣ 📂yuanxiadevopsasadev01
