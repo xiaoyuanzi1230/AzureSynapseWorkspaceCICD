@@ -9,7 +9,7 @@ In this current Git Repo, we will only focus on the deployment under **GitHub Ac
 
 ## Synapse CI/CD Overview
 
-XMind Workflow as below: 
+XMind Workflow as below (Click the picture to see the original size) 
 ![SynapseCICDOverview](res/img/AzureSynapseAnalytics.png)
 
 ## What is Synapse Control Plane
