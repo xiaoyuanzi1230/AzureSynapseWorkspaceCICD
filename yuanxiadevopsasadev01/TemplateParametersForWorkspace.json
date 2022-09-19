@@ -58,6 +58,9 @@
 		},
 		"SQL script 1_properties_content_currentConnection_poolName": {
 			"value": ""
+		},
+		"SqlPoolTable1_properties_sqlPool_referenceName": {
+			"value": ""
 		}
 	}
 }
