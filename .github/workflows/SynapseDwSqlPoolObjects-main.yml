@@ -48,7 +48,7 @@ jobs:
           # Name of the SQL Server name
           server-name: 'yuanxiadevopsasadev02.sql.azuresynapse.net'
           # The connection string, including authentication information, for the SQL Server database.
-          connection-string: '${{ secrets.SqlDwConnectionString }}'
+          connection-string: '${{ secrets.SQLDWCONNECTIONSTRING_SQLAUTH }}'
           # Path to DACPAC file. *.dacpac or a folder to deploy
           dacpac-package: './*.dacpac'
           # In case DACPAC option is selected, additional SqlPackage.exe arguments that will be applied. When SQL query option is selected, additional sqlcmd.exe arguments will be applied.
