@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[jsontest2] (
+    [EMPLID]     VARCHAR (11)    NULL,
+    [EMPL_RCD]   INT             NULL,
+    [CHANGE_AMT] NUMERIC (18, 6) NULL
+)
+WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);
+

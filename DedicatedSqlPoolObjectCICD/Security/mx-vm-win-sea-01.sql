@@ -1,0 +1,2 @@
+﻿CREATE USER [mx-vm-win-sea-01] FOR EXTERNAL PROVIDER;
+

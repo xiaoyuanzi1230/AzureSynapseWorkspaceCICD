@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[t3] (
+    [col1] INT NULL,
+    [col2] INT NULL
+)
+WITH (HEAP, DISTRIBUTION = ROUND_ROBIN);
+

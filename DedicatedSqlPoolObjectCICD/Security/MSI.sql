@@ -1,0 +1,3 @@
+﻿CREATE DATABASE SCOPED CREDENTIAL [MSI]
+    WITH IDENTITY = N'Managed Identity';
+
