@@ -22,16 +22,12 @@ Resources can only be found from **Synapse Studio**, like below screenshot:
 ![SynapseDataPlane](res/img/SynapseDataPlane.png)
 
 ## Resources in Git Repo
+
+### Synapse Workspace Artifacts
+> [Note!]   
+> Below is just a sample directory and object tree view, this tree view will not be updated due to too many objects and will mass up the whole guidance! 
 ```
- ┣ 📂.github
- ┃ ┗ 📂workflows
- ┃ ┃ ┗ 📜SynapseDataPlaneCICD-main.yml
- ┣ 📂res
- ┃ ┗ 📂img
- ┃ ┃ ┣ 📜Azure Synapse AnalyticsCICDOverview.png
- ┃ ┃ ┣ 📜SynapseControlPlane.png
- ┃ ┃ ┗ 📜SynapseDataPlane.png
- ┣ 📂yuanxiadevopsasadev01
+┣ 📂yuanxiadevopsasadev01
  ┃ ┣ 📂credential
  ┃ ┃ ┗ 📜WorkspaceSystemIdentity.json
  ┃ ┣ 📂dataset
@@ -45,10 +41,6 @@ Resources can only be found from **Synapse Studio**, like below screenshot:
  ┃ ┃ ┣ 📜AzureDataLakeStorage1.json
  ┃ ┃ ┣ 📜AzureKeyVault1.json
  ┃ ┃ ┣ 📜AzureSynapseAnalytics1.json
- ┃ ┃ ┣ 📜SynapseServerlessSQLView.json
- ┃ ┃ ┣ 📜yuanxiadevopsasadev01-WorkspaceDefaultSqlServer.json
- ┃ ┃ ┣ 📜yuanxiadevopsasadev01-WorkspaceDefaultStorage.json
- ┃ ┃ ┗ 📜yuanxiadevopsasadev01AzureKeyVault1.json
  ┃ ┣ 📂pipeline
  ┃ ┃ ┣ 📜Pipeline 1.json
  ┃ ┃ ┣ 📜Pipeline 2.json
@@ -62,9 +54,50 @@ Resources can only be found from **Synapse Studio**, like below screenshot:
  ┃ ┃ ┗ 📜ScheduleTrigger1.json
  ┃ ┣ 📜publish_config.json
  ┃ ┗ 📜template-parameters-definition.json
- ┣ 📜LICENSE
- ┗ 📜README.md
 ```
+### Dedicated SQL Pool Objects Solution file
+> [Note!]   
+> Below is just a sample directory and object tree view, this tree view will not be updated due to too many objects and will mass up the whole guidance!    
+
+```
+┣ 📂DedicatedSqlPoolObjectCICD
+ ┃ ┣ 📂dbo
+ ┃ ┃ ┣ 📂External Tables
+ ┃ ┃ ┃ ┗ 📜samples.sql
+ ┃ ┃ ┣ 📂Functions
+ ┃ ┃ ┃ ┗ 📜dReturnDate.sql
+ ┃ ┃ ┗ 📂Tables
+ ┃ ┃ ┃ ┣ 📜copytest1.sql
+ ┃ ┃ ┃ ┣ 📜jsontest1.sql
+ ┃ ┃ ┃ ┣ 📜jsontest2.sql
+ ┃ ┣ 📂External Resources
+ ┃ ┃ ┣ 📜AzureStorage1.sql
+ ┃ ┃ ┣ 📜MSI_data_source.sql
+ ┃ ┃ ┣ 📜SQLAnalyticsConnectorDataSource0c3839033c0c475b9154c16f8facab01.sql
+ ┃ ┃ ┣ 📜SQLAnalyticsConnectorDataSource_s5MrhjWi6D2.sql
+ ┃ ┃ ┣ 📜SQLAnalyticsConnectorDataSource_suMO8zGHoNF.sql
+ ┃ ┣ 📂Security
+ ┃ ┃ ┣ 📜AzureStorageCredential1.sql
+ ┃ ┃ ┣ 📜ext.sql
+ ┃ ┃ ┣ 📜MasterKeys.sql
+ ┃ ┃ ┣ 📜MSI.sql
+ ┃ ┣ 📂stg
+ ┃ ┃ ┗ 📂Tables
+ ┃ ┃ ┃ ┗ 📜hotel_dataset.sql
+ ┃ ┣ 📜.gitattributes
+ ┃ ┣ 📜.gitignore
+ ┃ ┣ 📜yuanxiadw02-SqlProject.sln
+ ┃ ┗ 📜yuanxiadw02-SqlProject.sqlproj
+```
+### Dedicated SQL Pool Objects DacPac files
+> [Note!]   
+> Below is just a sample directory and object tree view, this tree view will not be updated due to too many objects and will mass up the whole guidance! 
+```
+ ┣ 📂DedicatedSqlPoolDacPacFiles
+ ┃ ┗ 📂yuanxiadw02
+ ┃ ┃ ┗ 📜yuanxiadw02-SqlProject.dacpac
+```
+
 ## How it works
 We use a self-created GitHub Action workflow ymal file to do the Synapse Artifacts deployment. Related online doc about synapse workspace deployment extension:     
 [Synapse workspace deployment · Actions · GitHub Marketplace](https://github.com/marketplace/actions/synapse-workspace-deployment)    
