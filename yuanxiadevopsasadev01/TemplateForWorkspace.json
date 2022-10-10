@@ -69,17 +69,29 @@
 				}
 			}
 		},
-		"SQL script 1_properties_content_currentConnection_databaseName": {
+		"SQL script 1_properties_content_query": {
 			"type": "string"
 		},
-		"SQL script 1_properties_content_currentConnection_poolName": {
+		"SQL script 1_properties_content_metadata": {
+			"type": "object"
+		},
+		"SQL script 1_properties_content_currentConnection": {
+			"type": "object"
+		},
+		"SQL script 1_properties_content_resultLimit": {
+			"type": "int"
+		},
+		"SQL script 2_properties_content_query": {
 			"type": "string"
 		},
-		"SQL script 2_properties_content_currentConnection_databaseName": {
-			"type": "string"
+		"SQL script 2_properties_content_metadata": {
+			"type": "object"
 		},
-		"SQL script 2_properties_content_currentConnection_poolName": {
-			"type": "string"
+		"SQL script 2_properties_content_currentConnection": {
+			"type": "object"
+		},
+		"SQL script 2_properties_content_resultLimit": {
+			"type": "int"
 		}
 	},
 	"variables": {
@@ -583,15 +595,25 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "select 1",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "[parameters('SQL script 1_properties_content_currentConnection_databaseName')]",
-						"poolName": "[parameters('SQL script 1_properties_content_currentConnection_poolName')]"
-					},
-					"resultLimit": 5000
+					"query": "[parameters('SQL script 1_properties_content_query')]",
+					"metadata": "[parameters('SQL script 1_properties_content_metadata')]",
+					"currentConnection": "[parameters('SQL script 1_properties_content_currentConnection')]",
+					"resultLimit": "[parameters('SQL script 1_properties_content_resultLimit')]"
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 2')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "[parameters('SQL script 2_properties_content_query')]",
+					"metadata": "[parameters('SQL script 2_properties_content_metadata')]",
+					"currentConnection": "[parameters('SQL script 2_properties_content_currentConnection')]",
+					"resultLimit": "[parameters('SQL script 2_properties_content_resultLimit')]"
 				},
 				"type": "SqlQuery"
 			},
@@ -699,26 +721,6 @@
 			},
 			"dependsOn": [],
 			"location": "southeastasia"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/SQL script 2')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "-- These values come from your Azure Active Directory Application used to authenticate to ADLS Gen 2. \nCREATE DATABASE SCOPED CREDENTIAL ADLUser\nWITH IDENTITY = '<clientID>@\\<OAuth2.0TokenEndPoint>',\nSECRET = '<KEY>' ;\n\nCREATE EXTERNAL DATA SOURCE AzureDataLakeStore\nWITH (TYPE = HADOOP,\n      LOCATION = 'abfss://data@pbasetr.azuredatalakestore.net'\n);\n\nCREATE EXTERNAL FILE FORMAT TextFileFormat\nWITH\n(\n    FORMAT_TYPE = DELIMITEDTEXT\n    , FORMAT_OPTIONS ( FIELD_TERMINATOR = '|'\n       , STRING_DELIMITER = ''\n      , DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss.fff'\n      , USE_TYPE_DEFAULT = FALSE\n      )\n);\n\nCREATE EXTERNAL TABLE [dbo].[DimProduct_external]\n( [ProductKey] [int] NOT NULL,\n  [ProductLabel] nvarchar NULL,\n  [ProductName] nvarchar NULL )\nWITH\n(\n    LOCATION='/DimProduct/' ,\n    DATA_SOURCE = AzureDataLakeStore ,\n    FILE_FORMAT = TextFileFormat ,\n    REJECT_TYPE = VALUE ,\n    REJECT_VALUE = 0\n);\n\nCREATE TABLE [dbo].[DimProduct]\nWITH (DISTRIBUTION = HASH([ProductKey] ) )\nAS SELECT * FROM\n[dbo].[DimProduct_external] ;",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "[parameters('SQL script 2_properties_content_currentConnection_databaseName')]",
-						"poolName": "[parameters('SQL script 2_properties_content_currentConnection_poolName')]"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
 		}
 	]
 }

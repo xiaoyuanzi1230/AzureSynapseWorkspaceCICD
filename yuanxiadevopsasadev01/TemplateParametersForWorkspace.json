@@ -56,16 +56,28 @@
 				}
 			}
 		},
-		"SQL script 1_properties_content_currentConnection_databaseName": {
+		"SQL script 1_properties_content_query": {
 			"value": ""
 		},
-		"SQL script 1_properties_content_currentConnection_poolName": {
+		"SQL script 1_properties_content_metadata": {
 			"value": ""
 		},
-		"SQL script 2_properties_content_currentConnection_databaseName": {
+		"SQL script 1_properties_content_currentConnection": {
 			"value": ""
 		},
-		"SQL script 2_properties_content_currentConnection_poolName": {
+		"SQL script 1_properties_content_resultLimit": {
+			"value": ""
+		},
+		"SQL script 2_properties_content_query": {
+			"value": ""
+		},
+		"SQL script 2_properties_content_metadata": {
+			"value": ""
+		},
+		"SQL script 2_properties_content_currentConnection": {
+			"value": ""
+		},
+		"SQL script 2_properties_content_resultLimit": {
 			"value": ""
 		}
 	}
