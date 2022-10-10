@@ -9,9 +9,7 @@
     "Microsoft.Synapse/workspaces/sqlscripts": {
         "properties": {
             "content": {
-                "currentConnection": {
-                    "*": "-"
-                }
+                "*": "-"
             }
         }
     },
