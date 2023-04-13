@@ -6,13 +6,13 @@
 			"value": "yuanxiadevopsasadev01"
 		},
 		"AzureSynapseAnalytics1_connectionString": {
-			"value": ""
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=yuanxiadevopsasadev01.sql.azuresynapse.net;Initial Catalog=yuanxiadw01"
 		},
 		"SynapseServerlessSQLView_connectionString": {
-			"value": ""
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=;Initial Catalog="
 		},
 		"yuanxiadevopsasadev01-WorkspaceDefaultSqlServer_connectionString": {
-			"value": ""
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiadevopsasadev01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
 		"SqlPoolTable1_properties_sqlPool_referenceName": {
 			"value": ""
