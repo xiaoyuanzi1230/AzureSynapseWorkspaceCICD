@@ -1,0 +1,28 @@
+{
+	"name": "Pipeline 4_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "SQL pool stored procedure1",
+				"type": "SqlPoolStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"sqlPool": {
+					"referenceName": "yuanxiadw01",
+					"type": "SqlPoolReference"
+				},
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_pipltest01]"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
