@@ -1,0 +1,10 @@
+{
+	"name": "AzureDataLakeStorage1",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/f1c853de-dc62-4289-acb6-d24cd97dbf2c/resourceGroups/mx-dataverse-test-eus-01/providers/Microsoft.Storage/storageAccounts/mxadlseus01",
+		"groupId": "dfs",
+		"fqdns": [
+			"mxadlseus01.dfs.core.windows.net"
+		]
+	}
+}

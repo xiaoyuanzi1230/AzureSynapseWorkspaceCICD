@@ -1,0 +1,17 @@
+{
+	"name": "QUERY_COSMOS_Copy1",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP 10 *\nFROM OPENROWSET( \n       'CosmosDB',\n       'Account=mxcosmosdb;Database=mxsynapse;Key=',\n       Container1) as documents",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

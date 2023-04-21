@@ -1,0 +1,21 @@
+{
+	"name": "ServiceNow1",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "ServiceNow",
+		"typeProperties": {
+			"endpoint": "https://support.servicenow.com",
+			"authenticationType": "Basic",
+			"username": "sqladmin",
+			"useEncryptedEndpoints": true,
+			"useHostVerification": true,
+			"usePeerVerification": true,
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzZWUwMDM2YS00ZTVmLTQ2OTEtYTY0YS1hYWZkZjc2MzUyNjEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "mxwssea02-shir-01",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

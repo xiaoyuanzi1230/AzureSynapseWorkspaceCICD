@@ -1,0 +1,10 @@
+{
+	"name": "AzureDatabricks227",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/yuanxia-rg-bigdata-01/providers/Microsoft.Databricks/workspaces/mxdbxpremvnetsea01",
+		"groupId": "databricks_ui_api",
+		"fqdns": [
+			"adb-7037723957923186.6.azuredatabricks.net"
+		]
+	}
+}

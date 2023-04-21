@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-sql--mxwssea02",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/yuanwenxiang-internal-test-group/providers/Microsoft.Synapse/workspaces/mxwssea02",
+		"groupId": "sql",
+		"fqdns": [
+			"mxwssea02.35f27846-8a5d-4db7-bba0-e1a344417f78.sql.azuresynapse.net"
+		]
+	}
+}

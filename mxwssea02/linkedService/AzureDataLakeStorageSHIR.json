@@ -1,0 +1,16 @@
+{
+	"name": "AzureDataLakeStorageSHIR",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://marsdladmin.dfs.core.windows.net/",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzZDE4OWZkZS0xODJlLTQzYzYtYjQ3NC1lYTZkNzVlMzRhZWQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "mxwssea02-shir-01",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

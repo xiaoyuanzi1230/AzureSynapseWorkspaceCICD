@@ -1,0 +1,17 @@
+{
+	"name": "RestService1",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://api.clashofclans.com/v1/players/%239RUJUVJP",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "mxwssea02-shir-01",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"name": "SQLTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "id_num",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "fname",
+				"type": "varchar"
+			},
+			{
+				"name": "minit",
+				"type": "char"
+			},
+			{
+				"name": "lname",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "new_employees"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

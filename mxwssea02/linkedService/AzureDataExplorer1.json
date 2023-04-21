@@ -1,0 +1,16 @@
+{
+	"name": "AzureDataExplorer1",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDataExplorer",
+		"typeProperties": {
+			"endpoint": "https://yuanxiadataexplorer01.mxwssea01.kusto.azuresynapse.net",
+			"database": "yuanxiadb"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

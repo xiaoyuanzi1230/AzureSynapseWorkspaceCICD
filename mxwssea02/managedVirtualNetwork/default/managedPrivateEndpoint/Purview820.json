@@ -1,0 +1,10 @@
+{
+	"name": "Purview820",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/yuanxia-rg-bigdata-01/providers/Microsoft.Purview/accounts/yuanxiapurviewsea01",
+		"groupId": "account",
+		"fqdns": [
+			"yuanxiapurviewsea01.purview.azure.com"
+		]
+	}
+}

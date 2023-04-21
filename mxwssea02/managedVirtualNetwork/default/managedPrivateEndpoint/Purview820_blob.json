@@ -1,0 +1,7 @@
+{
+	"name": "Purview820_blob",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/managed-rg-yuanxiapurviewsea01/providers/Microsoft.Storage/storageAccounts/scansoutheastasiaxrypedx",
+		"groupId": "blob"
+	}
+}

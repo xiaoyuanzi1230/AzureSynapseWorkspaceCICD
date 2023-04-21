@@ -1,0 +1,24 @@
+{
+	"name": "IntegrationRuntime1",
+	"properties": {
+		"type": "Managed",
+		"typeProperties": {
+			"computeProperties": {
+				"location": "Southeast Asia",
+				"dataFlowProperties": {
+					"computeType": "General",
+					"coreCount": 8,
+					"timeToLive": 0,
+					"cleanup": true
+				},
+				"pipelineExternalComputeScaleProperties": {
+					"timeToLive": 60
+				}
+			}
+		},
+		"managedVirtualNetwork": {
+			"type": "ManagedVirtualNetworkReference",
+			"referenceName": "default"
+		}
+	}
+}

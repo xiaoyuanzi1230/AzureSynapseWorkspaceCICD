@@ -1,0 +1,10 @@
+{
+	"name": "AzureBlobStorage1",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/mx-rg-lab-sea-01/providers/Microsoft.Storage/storageAccounts/mxadlssea01",
+		"groupId": "blob",
+		"fqdns": [
+			"mxadlssea01.blob.core.windows.net"
+		]
+	}
+}

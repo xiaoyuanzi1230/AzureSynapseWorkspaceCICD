@@ -1,0 +1,35 @@
+{
+	"name": "PL_getSqlpoolStatus",
+	"properties": {
+		"activities": [
+			{
+				"name": "getSqlpoolStatus",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://management.azure.com/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/yuanwenxiang-internal-test-group/providers/Microsoft.Synapse/workspaces/mxwssea02/sqlPools/mxsqlpoolsea02?api-version=2021-06-01",
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2023-04-19T03:25:57Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

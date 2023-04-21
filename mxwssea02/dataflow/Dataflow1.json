@@ -1,0 +1,39 @@
+{
+	"name": "Dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Parquet1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Join1"
+				}
+			],
+			"script": "source(output(\n\t\tCustomerID as integer,\n\t\tNameStyle as boolean,\n\t\tTitle as string,\n\t\tFirstName as string,\n\t\tMiddleName as string,\n\t\tLastName as string,\n\t\tSuffix as string,\n\t\tCompanyName as string,\n\t\tSalesPerson as string,\n\t\tEmailAddress as string,\n\t\tPhone as string,\n\t\tPasswordHash as string,\n\t\tPasswordSalt as string,\n\t\trowguid as string,\n\t\tModifiedDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource(output(\n\t\tCustomerID as integer,\n\t\tAddressID as integer,\n\t\tAddressType as string,\n\t\trowguid as string,\n\t\tModifiedDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source2\nsource1, source2 join(source1@CustomerID == source2@CustomerID,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> Join1\nJoin1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'parquet',\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"name": "PrivateLinkService1",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/yuanxia-vnet-test-sea-01/providers/Microsoft.Network/privateLinkServices/myPrivateLinkService",
+		"groupId": "",
+		"fqdns": [
+			"yuanxiasqlmisea01.34be69bbf842.database.windows.net"
+		]
+	}
+}

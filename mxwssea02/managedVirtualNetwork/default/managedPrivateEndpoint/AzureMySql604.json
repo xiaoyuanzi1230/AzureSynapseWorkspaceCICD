@@ -1,0 +1,7 @@
+{
+	"name": "AzureMySql604",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/yuanxia-rg-database-01/providers/Microsoft.DBforMySQL/servers/yuanxiamysql02",
+		"groupId": "mysqlServer"
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"name": "AzureMySql1",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureMySql",
+		"typeProperties": {
+			"connectionString": "server=yuanxiamysql03.mysql.database.azure.com;port=3306;database=mysql;uid=mysqldba;sslmode=1;usesystemtruststore=0",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyNjNiMTNiMy0zYTVhLTQ1ZjAtYjcyNy1kMTg4MTM1NmIzYjMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "mxwssea02-shir-01",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

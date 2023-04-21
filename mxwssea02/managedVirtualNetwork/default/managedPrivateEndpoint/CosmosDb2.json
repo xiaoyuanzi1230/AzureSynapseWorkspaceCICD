@@ -1,0 +1,10 @@
+{
+	"name": "CosmosDb2",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/yuanwenxiang-internal-test-group/providers/Microsoft.DocumentDb/databaseAccounts/mxcosmosdb",
+		"groupId": "Analytical",
+		"fqdns": [
+			"964772599860960566.blob.core.windows.net"
+		]
+	}
+}

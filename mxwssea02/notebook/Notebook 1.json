@@ -1,0 +1,96 @@
+{
+	"name": "Notebook 1",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "mxsparkpool02",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "3134061a-b3e9-4fcb-a501-24f23fcbc5ef"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/yuanwenxiang-internal-test-group/providers/Microsoft.Synapse/workspaces/mxwssea02/bigDataPools/mxsparkpool02",
+				"name": "mxsparkpool02",
+				"type": "Spark",
+				"endpoint": "https://mxwssea02.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/mxsparkpool02",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"# Read data from ADLS\r\n",
+					"from pyspark.sql import SparkSession\r\n",
+					"from pyspark.sql.types import *\r\n",
+					"account_name = 'marsdladmin'\r\n",
+					"container_name = 'dlfs'\r\n",
+					"relative_path = 'homework/Homework_a'\r\n",
+					"adls_path = 'abfss://%s@%s.dfs.core.windows.net/%s' % (container_name, account_name, relative_path)\r\n",
+					"df1 = spark.read.option('header', 'false').option('delimiter', '|').csv(adls_path + '/Homework_a.txt')\r\n",
+					"display(df1.limit(10))"
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "csharp"
+					}
+				},
+				"source": [
+					"%%csharp\r\n",
+					"using System.Net;\r\n",
+					"IPHostEntry host = Dns.GetHostEntry(\"mxwssea02-ondemand.sql.azuresynapse.net\");\r\n",
+					"host"
+				]
+			}
+		]
+	}
+}

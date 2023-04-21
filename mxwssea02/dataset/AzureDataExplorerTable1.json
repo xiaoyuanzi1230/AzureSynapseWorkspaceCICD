@@ -1,0 +1,33 @@
+{
+	"name": "AzureDataExplorerTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataExplorer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureDataExplorerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int"
+			},
+			{
+				"name": "Name",
+				"type": "string"
+			},
+			{
+				"name": "Income",
+				"type": "int"
+			},
+			{
+				"name": "Contry",
+				"type": "string"
+			}
+		],
+		"typeProperties": {
+			"table": "income"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,21 @@
+{
+	"name": "Sftp1",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Sftp",
+		"typeProperties": {
+			"host": "10.2.0.7",
+			"port": 22,
+			"skipHostKeyValidation": false,
+			"hostKeyFingerprint": "ssh-rsa 3072 bd:56:fd:82:20:5d:ef:4b:a3:15:64:9a:b6:f0:5f:55",
+			"authenticationType": "SshPublicKey",
+			"userName": "yuanxia",
+			"privateKeyPath": "C:\\Users\\yuanxia\\ssh\\yuanxiavmrdhtsea01Key.pem"
+		},
+		"connectVia": {
+			"referenceName": "mxwssea02-shir-01",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
