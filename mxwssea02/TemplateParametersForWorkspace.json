@@ -1,0 +1,81 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "mxwssea02"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorageSHIR_accountKey": {
+			"value": ""
+		},
+		"AzureMySql1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=yuanxia-sqlsrv-sea-01.database.windows.net;Initial Catalog=yuanxiadb02"
+		},
+		"AzureSqlMI1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlMI2_connectionString": {
+			"value": ""
+		},
+		"CosmosDb1_connectionString": {
+			"value": ""
+		},
+		"DB2_ODBC_connectionString": {
+			"value": ""
+		},
+		"SapHana1_connectionString": {
+			"value": ""
+		},
+		"ServiceNow1_password": {
+			"value": ""
+		},
+		"Sftp1_passPhrase": {
+			"value": ""
+		},
+		"SqlServer1_connectionString": {
+			"value": ""
+		},
+		"mxwssea02-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:mxwssea02.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"AzureBlobStorage1_properties_typeProperties_serviceEndpoint": {
+			"value": "https://mxadlssea01.blob.core.windows.net"
+		},
+		"AzureDataExplorer1_properties_typeProperties_database": {
+			"value": "yuanxiadb"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://mxadlseus01.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorageSHIR_properties_typeProperties_url": {
+			"value": "https://marsdladmin.dfs.core.windows.net/"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://mx-akv-sea-02.vault.azure.net/"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://api.clashofclans.com/v1/players/%239RUJUVJP"
+		},
+		"ServiceNow1_properties_typeProperties_username": {
+			"value": "sqladmin"
+		},
+		"Sftp1_properties_typeProperties_host": {
+			"value": "10.2.0.7"
+		},
+		"Sftp1_properties_typeProperties_hostKeyFingerprint": {
+			"value": "ssh-rsa 3072 bd:56:fd:82:20:5d:ef:4b:a3:15:64:9a:b6:f0:5f:55"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"value": "yuanxia"
+		},
+		"mxwssea02-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://marsdladmin.dfs.core.windows.net"
+		}
+	}
+}
