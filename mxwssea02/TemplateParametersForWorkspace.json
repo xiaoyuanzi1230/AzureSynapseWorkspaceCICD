@@ -5,6 +5,9 @@
 		"workspaceName": {
 			"value": "mxwssea02"
 		},
+		"AzureBlobStorage2_connectionString": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
