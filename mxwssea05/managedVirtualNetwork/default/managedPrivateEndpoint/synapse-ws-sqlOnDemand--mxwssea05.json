@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-sqlOnDemand--mxwssea05",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d6a3f48d-5664-442c-a62a-830452614557/resourceGroups/yuanxia-rg-bigdata-01/providers/Microsoft.Synapse/workspaces/mxwssea05",
+		"groupId": "sqlOnDemand",
+		"fqdns": [
+			"mxwssea05-ondemand.27ce868c-7e56-4cd3-a4fc-72e604860369.sql.azuresynapse.net"
+		]
+	}
+}
