@@ -1,0 +1,25 @@
+{
+	"name": "Database1",
+	"properties": {
+		"Name": "Database1",
+		"EntityType": "DATABASE",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database1/Table_1",
+			"Properties": {
+				"FormatType": "csv",
+				"LinkedServiceName": "yuanxiasynwssea01-WorkspaceDefaultStorage"
+			}
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 6,
+		"ObjectId": "ecd8bc52-fbfe-47b4-9079-2bd3bd3430d5"
+	},
+	"type": "DATABASE"
+}
