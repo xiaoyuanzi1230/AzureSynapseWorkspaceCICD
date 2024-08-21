@@ -18,16 +18,12 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "10b21774-125b-4a53-854c-1e80a5680a74"
+				"spark.autotune.trackingId": "a42aa1a5-12d4-4541-b973-d10e44a7a62a"
 			}
 		},
 		"metadata": {
 			"saveOutput": true,
 			"enableDebugMode": false,
-			"kernelspec": {
-				"name": "synapse_pyspark",
-				"display_name": "python"
-			},
 			"language_info": {
 				"name": "python"
 			},
@@ -38,13 +34,14 @@
 				"endpoint": "https://yuanxiasynwssea01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool01",
 				"auth": {
 					"type": "AAD",
-					"authResource": "https://dev.azuresynapse.net"
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
 				},
 				"sparkVersion": "3.4",
 				"nodeCount": 10,
 				"cores": 4,
 				"memory": 28,
-				"automaticScaleJobs": false
+				"extraHeader": null
 			},
 			"sessionKeepAliveTimeout": 30
 		},
@@ -61,8 +58,7 @@
 					"df = spark.read.load('abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Parquet/dbo.t1.parquet', format='parquet')\n",
 					"display(df.limit(10))\n",
 					"# Hello"
-				],
-				"execution_count": null
+				]
 			}
 		]
 	}
