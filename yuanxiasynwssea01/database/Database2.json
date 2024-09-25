@@ -11,7 +11,7 @@
 		},
 		"Source": {
 			"Provider": "ADLS",
-			"Location": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database",
+			"Location": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database2/Table_2",
 			"Properties": {
 				"FormatType": "csv",
 				"LinkedServiceName": "yuanxiasynwssea01-WorkspaceDefaultStorage"
