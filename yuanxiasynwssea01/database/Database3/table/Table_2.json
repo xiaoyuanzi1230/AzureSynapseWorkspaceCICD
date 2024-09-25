@@ -1,7 +1,7 @@
 {
-	"name": "Table_1",
+	"name": "Table_2",
 	"properties": {
-		"Name": "Table_1",
+		"Name": "Table_2",
 		"EntityType": "TABLE",
 		"Namespace": {
 			"DatabaseName": "Database3"
@@ -33,23 +33,23 @@
 				"FormatType": "csv",
 				"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
 				"Properties": {
-					"path": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database3/Table_1/Table_1",
+					"path": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database3/Databases/TempDatabases/Table_2",
 					"delimiter": ",",
 					"multiLine": "false",
 					"firstRowAsHeader": "false",
 					"serialization.format": "1",
 					"escape": "\\",
 					"quote": "\"",
-					"FormatTypeSetToDatabaseDefault": true,
+					"FormatTypeSetToDatabaseDefault": false,
 					"header": "false"
 				}
 			},
 			"Source": {
 				"Provider": "ADLS",
-				"Location": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database3/Table_1/Table_1",
+				"Location": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database3/Databases/TempDatabases/Table_2",
 				"Properties": {
 					"LinkedServiceName": "yuanxiasynwssea01-WorkspaceDefaultStorage",
-					"LocationSetToDatabaseDefault": true
+					"LocationSetToDatabaseDefault": false
 				}
 			},
 			"Properties": {
@@ -64,7 +64,8 @@
 			"Description": "",
 			"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 			"PrimaryKeys": "",
-			"spark.sql.sources.provider": "csv"
+			"spark.sql.sources.provider": "csv",
+			"sql:IsAppendOnly": false
 		},
 		"Retention": 0,
 		"Temporary": false,
