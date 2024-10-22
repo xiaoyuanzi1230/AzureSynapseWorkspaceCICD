@@ -7,18 +7,14 @@
 			"metadata": "Workspace name",
 			"defaultValue": "yuanxiasynwssea01"
 		},
-		"yuanxiasynwssea01-WorkspaceDefaultSqlServer_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'yuanxiasynwssea01-WorkspaceDefaultSqlServer'",
-			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiasynwssea01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
-		},
 		"Salesforce1_clientSecret": {
 			"type": "secureString",
 			"metadata": "Secure string for 'clientSecret' of 'Salesforce1'"
 		},
-		"yuanxiasynwssea01-WorkspaceDefaultStorage_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net"
+		"yuanxiasynwssea01-WorkspaceDefaultSqlServer_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'yuanxiasynwssea01-WorkspaceDefaultSqlServer'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiasynwssea01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
 		"Salesforce1_properties_typeProperties_environmentUrl": {
 			"type": "string",
@@ -27,6 +23,25 @@
 		"Salesforce1_properties_typeProperties_clientId": {
 			"type": "string",
 			"defaultValue": "dasfcvdsfgdfgdfsg"
+		},
+		"Salesforce1_properties_typeProperties_clientSecret": {
+			"type": "string"
+		},
+		"Salesforce1_properties_typeProperties_apiVersion": {
+			"type": "string",
+			"defaultValue": "61.0"
+		},
+		"Salesforce1_properties_typeProperties_authenticationType": {
+			"type": "string",
+			"defaultValue": "OAuth2ClientCredential"
+		},
+		"yuanxiasynwssea01-WorkspaceDefaultSqlServer_properties_typeProperties_connectionString": {
+			"type": "string",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiasynwssea01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"yuanxiasynwssea01-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net"
 		}
 	},
 	"variables": {
@@ -287,6 +302,32 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/Salesforce1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "SalesforceV2",
+				"typeProperties": {
+					"environmentUrl": "[parameters('Salesforce1_properties_typeProperties_environmentUrl')]",
+					"clientId": "[parameters('Salesforce1_properties_typeProperties_clientId')]",
+					"clientSecret": {
+						"type": "SecureString",
+						"value": "[parameters('Salesforce1_properties_typeProperties_clientSecret')]"
+					},
+					"apiVersion": "[parameters('Salesforce1_properties_typeProperties_apiVersion')]",
+					"authenticationType": "[parameters('Salesforce1_properties_typeProperties_authenticationType')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/yuanxiasynwssea01-WorkspaceDefaultSqlServer')]",
 			"type": "Microsoft.Synapse/workspaces/linkedServices",
 			"apiVersion": "2019-06-01-preview",
@@ -299,7 +340,10 @@
 				"annotations": [],
 				"type": "AzureSqlDW",
 				"typeProperties": {
-					"connectionString": "[parameters('yuanxiasynwssea01-WorkspaceDefaultSqlServer_connectionString')]"
+					"connectionString": {
+						"type": "SecureString",
+						"value": "[parameters('yuanxiasynwssea01-WorkspaceDefaultSqlServer_properties_typeProperties_connectionString')]"
+					}
 				},
 				"connectVia": {
 					"referenceName": "AutoResolveIntegrationRuntime",
@@ -708,32 +752,6 @@
 			},
 			"dependsOn": [],
 			"location": "southeastasia"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/Salesforce1')]",
-			"type": "Microsoft.Synapse/workspaces/linkedServices",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": [],
-				"type": "SalesforceV2",
-				"typeProperties": {
-					"environmentUrl": "[parameters('Salesforce1_properties_typeProperties_environmentUrl')]",
-					"clientId": "[parameters('Salesforce1_properties_typeProperties_clientId')]",
-					"clientSecret": {
-						"type": "SecureString",
-						"value": "[parameters('Salesforce1_clientSecret')]"
-					},
-					"apiVersion": "61.0",
-					"authenticationType": "OAuth2ClientCredential"
-				},
-				"connectVia": {
-					"referenceName": "AutoResolveIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
-			]
 		}
 	]
 }
