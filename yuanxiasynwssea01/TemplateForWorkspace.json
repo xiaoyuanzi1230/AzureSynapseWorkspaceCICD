@@ -12,9 +12,21 @@
 			"metadata": "Secure string for 'connectionString' of 'yuanxiasynwssea01-WorkspaceDefaultSqlServer'",
 			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiasynwssea01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"Salesforce1_clientSecret": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clientSecret' of 'Salesforce1'"
+		},
 		"yuanxiasynwssea01-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net"
+		},
+		"Salesforce1_properties_typeProperties_environmentUrl": {
+			"type": "string",
+			"defaultValue": "https://some.my.salesforce.com"
+		},
+		"Salesforce1_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "dasfcvdsfgdfgdfsg"
 		}
 	},
 	"variables": {
@@ -454,10 +466,6 @@
 				"metadata": {
 					"saveOutput": true,
 					"enableDebugMode": false,
-					"kernelspec": {
-						"name": "synapse_pyspark",
-						"display_name": "python"
-					},
 					"language_info": {
 						"name": "python"
 					},
@@ -468,13 +476,14 @@
 						"endpoint": "https://yuanxiasynwssea01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool01",
 						"auth": {
 							"type": "AAD",
-							"authResource": "https://dev.azuresynapse.net"
+							"authResource": "https://dev.azuresynapse.net",
+							"authHeader": null
 						},
 						"sparkVersion": "3.4",
 						"nodeCount": 10,
 						"cores": 4,
 						"memory": 28,
-						"automaticScaleJobs": false
+						"extraHeader": null
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -492,8 +501,7 @@
 							"display(df.limit(10))\n",
 							"# Hello"
 						],
-						"outputs": [],
-						"execution_count": null
+						"outputs": []
 					}
 				]
 			},
@@ -700,6 +708,32 @@
 			},
 			"dependsOn": [],
 			"location": "southeastasia"
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Salesforce1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "SalesforceV2",
+				"typeProperties": {
+					"environmentUrl": "[parameters('Salesforce1_properties_typeProperties_environmentUrl')]",
+					"clientId": "[parameters('Salesforce1_properties_typeProperties_clientId')]",
+					"clientSecret": {
+						"type": "SecureString",
+						"value": "[parameters('Salesforce1_clientSecret')]"
+					},
+					"apiVersion": "61.0",
+					"authenticationType": "OAuth2ClientCredential"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
 		}
 	]
 }

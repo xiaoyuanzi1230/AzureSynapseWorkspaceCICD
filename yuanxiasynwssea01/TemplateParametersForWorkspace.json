@@ -8,8 +8,17 @@
 		"yuanxiasynwssea01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiasynwssea01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"Salesforce1_clientSecret": {
+			"value": ""
+		},
 		"yuanxiasynwssea01-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://dl4synapsesea01.dfs.core.windows.net"
+		},
+		"Salesforce1_properties_typeProperties_environmentUrl": {
+			"value": "https://some.my.salesforce.com"
+		},
+		"Salesforce1_properties_typeProperties_clientId": {
+			"value": "dasfcvdsfgdfgdfsg"
 		}
 	}
 }
