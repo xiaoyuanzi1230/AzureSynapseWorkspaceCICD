@@ -1,0 +1,22 @@
+{
+	"name": "Database3",
+	"properties": {
+		"Name": "Database3",
+		"EntityType": "DATABASE",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database3/Table_1",
+			"Properties": {
+				"FormatType": "csv",
+				"LinkedServiceName": "yuanxiasynwssea01-WorkspaceDefaultStorage"
+			}
+		}
+	},
+	"type": "DATABASE"
+}
