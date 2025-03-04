@@ -1,0 +1,100 @@
+{
+	"name": "waitWithExpression",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait MST_3 Start",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Find Storage Account",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@max(1,\n    div(\n        sub(\n            ticks(concat(substring(convertFromUtc(utcNow(), 'Tokyo Standard Time', 's'), 0, 11), pipeline().parameters.group3StartTime, ':00Z')),\n            ticks(convertFromUtc(utcNow(), 'Tokyo Standard Time', 's'))\n        ),\n        10000000\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Wait MST_4 Start",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Find Storage Account",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@max(1,\n    div(\n        sub(\n            ticks(concat(substring(convertFromUtc(utcNow(), 'Tokyo Standard Time', 's'), 0, 11), pipeline().parameters.group4StartTime, ':00Z')),\n            ticks(convertFromUtc(utcNow(), 'Tokyo Standard Time', 's'))\n        ),\n        10000000\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Wait MST_2 Start",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Find Storage Account",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@max(1,\n    div(\n        sub(\n            ticks(concat(substring(convertFromUtc(utcNow(), 'Tokyo Standard Time', 's'), 0, 11), pipeline().parameters.group2StartTime, ':00Z')),\n            ticks(convertFromUtc(utcNow(), 'Tokyo Standard Time', 's'))\n        ),\n        10000000\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Find Storage Account",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "storageAccount",
+					"value": "hello"
+				}
+			}
+		],
+		"parameters": {
+			"group2StartTime": {
+				"type": "string",
+				"defaultValue": "04:30"
+			},
+			"group3StartTime": {
+				"type": "string",
+				"defaultValue": "05:30"
+			},
+			"group4StartTime": {
+				"type": "string",
+				"defaultValue": "06:30"
+			}
+		},
+		"variables": {
+			"storageAccount": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-03-03T05:18:37Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
