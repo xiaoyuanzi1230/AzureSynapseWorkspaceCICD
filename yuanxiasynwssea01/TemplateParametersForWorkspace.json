@@ -11,6 +11,9 @@
 		"yuanxiasynwssea01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiasynwssea01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://dl4synapsesea01.dfs.core.windows.net/"
+		},
 		"PowerBIWorkspace1_properties_typeProperties_workspaceID": {
 			"value": "0cc58319-d3cf-4996-ad2f-6b661ffefe67"
 		},
@@ -37,6 +40,9 @@
 		},
 		"yuanxiasynwssea01-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://dl4synapsesea01.dfs.core.windows.net"
+		},
+		"DataLake_properties_typeProperties_url": {
+			"value": "https://dl4synapsesea01.dfs.core.windows.net/"
 		}
 	}
 }

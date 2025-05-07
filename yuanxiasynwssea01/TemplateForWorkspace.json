@@ -16,6 +16,10 @@
 			"metadata": "Secure string for 'connectionString' of 'yuanxiasynwssea01-WorkspaceDefaultSqlServer'",
 			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiasynwssea01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net/"
+		},
 		"PowerBIWorkspace1_properties_typeProperties_workspaceID": {
 			"type": "string",
 			"defaultValue": "0cc58319-d3cf-4996-ad2f-6b661ffefe67"
@@ -50,6 +54,10 @@
 		"yuanxiasynwssea01-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net"
+		},
+		"DataLake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net/"
 		}
 	},
 	"variables": {
@@ -415,6 +423,25 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/PowerBIWorkspace1')]",
 			"type": "Microsoft.Synapse/workspaces/linkedServices",
 			"apiVersion": "2019-06-01-preview",
@@ -743,6 +770,93 @@
 							"# Hello"
 						],
 						"outputs": []
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Notebook 2')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"nbformat": 4,
+				"nbformat_minor": 2,
+				"bigDataPool": {
+					"referenceName": "sparkpool01",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2",
+						"spark.autotune.trackingId": "bf9c8a51-34b5-41e6-b2cc-b23276ad49b7"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"enableDebugMode": false,
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "python"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/84a77243-5e65-47ac-bffc-0bb77428e6c9/resourceGroups/rg-bigdata-sea-01/providers/Microsoft.Synapse/workspaces/yuanxiasynwssea01/bigDataPools/sparkpool01",
+						"name": "sparkpool01",
+						"type": "Spark",
+						"endpoint": "https://yuanxiasynwssea01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool01",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.4",
+						"nodeCount": 10,
+						"cores": 4,
+						"memory": 28
+					},
+					"sessionKeepAliveTimeout": 30
+				},
+				"cells": [
+					{
+						"cell_type": "code",
+						"source": [
+							"# Create a sample DataFrame\n",
+							"data = [\n",
+							"    (\"Alice\", 30, \"Engineer\"),\n",
+							"    (\"Bob\", 35, \"Manager\"),\n",
+							"    (\"Charlie\", 40, \"Director\"),\n",
+							"    (\"David\", 28, \"Data Scientist\"),\n",
+							"    (\"Eva\", 11, \"Analyst\"),\n",
+							"]\n",
+							"columns = [\"name\", \"age\", \"occupation\"]\n",
+							"\n",
+							"df = spark.createDataFrame(data, columns)\n",
+							"\n",
+							"# Display the DataFrame (optional)\n",
+							"df.show()\n",
+							"\n",
+							"# Write DataFrame to Delta format\n",
+							"# Update the path to your own storage location\n",
+							"output_delta_path = \"abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/FabricSampleData\"\n",
+							"\n",
+							"df.write.format(\"delta\") \\\n",
+							"    .mode(\"overwrite\") \\\n",
+							"    .save(output_delta_path)\n",
+							"\n",
+							"print(f\"Data successfully written to Delta at: {output_delta_path}\")\n",
+							""
+						],
+						"outputs": [],
+						"execution_count": 7
 					}
 				]
 			},
@@ -2311,6 +2425,25 @@
 			},
 			"dependsOn": [],
 			"location": "southeastasia"
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DataLake')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('DataLake_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
 		}
 	]
 }
