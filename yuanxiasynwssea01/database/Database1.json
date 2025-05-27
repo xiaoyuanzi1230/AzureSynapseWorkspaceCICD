@@ -18,7 +18,7 @@
 			}
 		},
 		"PublishStatus": "PUBLISHED",
-		"ObjectVersion": 6,
+		"ObjectVersion": 8,
 		"ObjectId": "ecd8bc52-fbfe-47b4-9079-2bd3bd3430d5"
 	},
 	"type": "DATABASE"

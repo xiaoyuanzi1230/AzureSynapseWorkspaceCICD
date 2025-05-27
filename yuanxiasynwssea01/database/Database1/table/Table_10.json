@@ -3,30 +3,32 @@
 	"properties": {
 		"Name": "Table_10",
 		"EntityType": "TABLE",
-		"Namespace": {
-			"DatabaseName": "Database1"
-		},
-		"Description": "",
 		"TableType": "EXTERNAL",
-		"Origin": {
-			"Type": "SPARK"
+		"Namespace": {
+			"SchemaName": null,
+			"DatabaseName": "Database1",
+			"DatabaseId": null
 		},
 		"StorageDescriptor": {
+			"Distribution": null,
 			"Columns": [
 				{
 					"Name": "Column_1",
+					"Description": null,
 					"OriginDataTypeName": {
 						"TypeName": "string",
 						"IsComplexType": false,
 						"IsNullable": true,
 						"Length": 256,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				}
 			],
+			"ColumnSetEntityName": "5773afa5-9791-415a-a865-94f6556c8ff7",
 			"Format": {
 				"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 				"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -35,8 +37,8 @@
 				"Properties": {
 					"path": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database1/Databases/TempDatabases/Table_10",
 					"delimiter": ",",
-					"multiLine": "false",
 					"firstRowAsHeader": "false",
+					"multiLine": "false",
 					"serialization.format": "1",
 					"escape": "\\",
 					"quote": "\"",
@@ -58,18 +60,34 @@
 				"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 			},
 			"Compressed": false,
+			"SerDeInfo": null,
 			"IsStoredAsSubdirectories": false
 		},
+		"Owner": null,
+		"CreateTime": 0,
+		"LastAccessTime": 0,
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false,
+		"ViewOriginalText": null,
+		"ViewExpandedText": null,
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"OriginObjectId": null,
+		"IsSharedEntity": false,
+		"PublishStatus": "PUBLISHED",
 		"Properties": {
 			"Description": "",
 			"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 			"PrimaryKeys": "",
 			"spark.sql.sources.provider": "csv",
-			"sql:IsAppendOnly": false
+			"spark.sql.sources.schema.numParts": "1",
+			"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 		},
-		"Retention": 0,
-		"Temporary": false,
-		"IsRewriteEnabled": false
+		"ObjectVersion": 2,
+		"ObjectId": "8673cd71-1642-4b9b-b135-9d74edb7af7f",
+		"Description": ""
 	},
 	"type": "TABLE"
 }

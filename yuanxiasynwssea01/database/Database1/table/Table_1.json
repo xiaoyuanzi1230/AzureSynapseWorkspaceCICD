@@ -90,7 +90,7 @@
 			"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
 			"spark.sql.partitionProvider": "catalog"
 		},
-		"ObjectVersion": 6,
+		"ObjectVersion": 7,
 		"ObjectId": "2d065632-f732-4a61-b48b-3aa13765af26",
 		"Description": ""
 	},

@@ -13,6 +13,7 @@
 			"executorMemory": "28g",
 			"executorCores": 4,
 			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
@@ -23,10 +24,6 @@
 		"metadata": {
 			"saveOutput": true,
 			"enableDebugMode": false,
-			"kernelspec": {
-				"name": "synapse_pyspark",
-				"display_name": "Synapse PySpark"
-			},
 			"language_info": {
 				"name": "python"
 			},
@@ -37,13 +34,14 @@
 				"endpoint": "https://yuanxiasynwssea01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool01",
 				"auth": {
 					"type": "AAD",
-					"authResource": "https://dev.azuresynapse.net"
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
 				},
 				"sparkVersion": "3.4",
 				"nodeCount": 10,
 				"cores": 4,
 				"memory": 28,
-				"automaticScaleJobs": false
+				"extraHeader": null
 			},
 			"sessionKeepAliveTimeout": 30
 		},

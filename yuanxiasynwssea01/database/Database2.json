@@ -16,7 +16,10 @@
 				"FormatType": "csv",
 				"LinkedServiceName": "yuanxiasynwssea01-WorkspaceDefaultStorage"
 			}
-		}
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 2,
+		"ObjectId": "40c152c5-0608-43c1-a5a6-e4d046999723"
 	},
 	"type": "DATABASE"
 }
