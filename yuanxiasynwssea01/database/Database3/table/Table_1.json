@@ -20,12 +20,11 @@
 						"IsComplexType": false,
 						"IsNullable": true,
 						"Length": 256,
-						"Precision": 0,
-						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
 						}
-					}
+					},
+					"DeltaFormatInvalidMessages": []
 				}
 			],
 			"ColumnSetEntityName": "9cc8de05-4577-43ba-adf8-7333bd5500ca",
@@ -37,8 +36,8 @@
 				"Properties": {
 					"path": "abfss://synapsedata01@dl4synapsesea01.dfs.core.windows.net/Database3/Table_1/Table_1",
 					"delimiter": ",",
-					"firstRowAsHeader": "false",
 					"multiLine": "false",
+					"firstRowAsHeader": "false",
 					"serialization.format": "1",
 					"escape": "\\",
 					"quote": "\"",
