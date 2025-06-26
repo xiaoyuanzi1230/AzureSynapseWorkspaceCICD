@@ -5,6 +5,9 @@
 		"workspaceName": {
 			"value": "yuanxiasynwssea01"
 		},
+		"CosmosDBLScosmicworks_connectionString": {
+			"value": ""
+		},
 		"Salesforce1_clientSecret": {
 			"value": ""
 		},
@@ -12,6 +15,12 @@
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiasynwssea01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://dl4synapsesea01.dfs.core.windows.net/"
+		},
+		"CosmosDBLScosmicworks_properties_typeProperties_connectionString": {
+			"value": ""
+		},
+		"DataLake_properties_typeProperties_url": {
 			"value": "https://dl4synapsesea01.dfs.core.windows.net/"
 		},
 		"PowerBIWorkspace1_properties_typeProperties_workspaceID": {
@@ -40,9 +49,6 @@
 		},
 		"yuanxiasynwssea01-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://dl4synapsesea01.dfs.core.windows.net"
-		},
-		"DataLake_properties_typeProperties_url": {
-			"value": "https://dl4synapsesea01.dfs.core.windows.net/"
 		}
 	}
 }

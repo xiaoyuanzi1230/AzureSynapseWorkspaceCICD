@@ -7,6 +7,10 @@
 			"metadata": "Workspace name",
 			"defaultValue": "yuanxiasynwssea01"
 		},
+		"CosmosDBLScosmicworks_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CosmosDBLScosmicworks'"
+		},
 		"Salesforce1_clientSecret": {
 			"type": "secureString",
 			"metadata": "Secure string for 'clientSecret' of 'Salesforce1'"
@@ -17,6 +21,13 @@
 			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:yuanxiasynwssea01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net/"
+		},
+		"CosmosDBLScosmicworks_properties_typeProperties_connectionString": {
+			"type": "string"
+		},
+		"DataLake_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net/"
 		},
@@ -54,10 +65,6 @@
 		"yuanxiasynwssea01-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net"
-		},
-		"DataLake_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://dl4synapsesea01.dfs.core.windows.net/"
 		}
 	},
 	"variables": {
@@ -152,7 +159,7 @@
 					"elapsedTimeMetric": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2024-07-02T06:39:05Z"
+				"lastPublishTime": "2025-03-11T05:32:35Z"
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/SqlPoolTable1')]",
@@ -228,11 +235,73 @@
 					"elapsedTimeMetric": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2024-07-03T02:00:44Z"
+				"lastPublishTime": "2025-03-11T05:32:42Z"
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/DelimitedText1')]",
 				"[concat(variables('workspaceId'), '/datasets/Parquet1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Pipeline 3')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "CosmosDbSqlApiSink",
+								"writeBehavior": "insert"
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "CosmosDbNoSqlContainer1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('workspaceId'), '/datasets/CosmosDbNoSqlContainer1')]"
 			]
 		},
 		{
@@ -336,9 +405,29 @@
 					}
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-03-03T05:18:37Z"
+				"lastPublishTime": "2025-03-11T05:31:33Z"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CosmosDbNoSqlContainer1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CosmosDBLScosmicworks",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {},
+				"typeProperties": {
+					"collectionName": "products"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/CosmosDBLScosmicworks')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('workspaceName'), '/DelimitedText1')]",
@@ -402,6 +491,37 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/SI_IRENA_Folder')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DataLake",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SI_IRENA"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "IRENA",
+						"fileSystem": "adls"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/DataLake')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/SqlPoolTable1')]",
 			"type": "Microsoft.Synapse/workspaces/datasets",
 			"apiVersion": "2019-06-01-preview",
@@ -431,6 +551,47 @@
 				"type": "AzureBlobFS",
 				"typeProperties": {
 					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CosmosDBLScosmicworks')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "CosmosDb",
+				"typeProperties": {
+					"connectionString": {
+						"type": "SecureString",
+						"value": "[parameters('CosmosDBLScosmicworks_properties_typeProperties_connectionString')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DataLake')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('DataLake_properties_typeProperties_url')]"
 				},
 				"connectVia": {
 					"referenceName": "AutoResolveIntegrationRuntime",
@@ -792,6 +953,7 @@
 					"executorMemory": "28g",
 					"executorCores": 4,
 					"numExecutors": 2,
+					"runAsWorkspaceSystemIdentity": false,
 					"conf": {
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
@@ -802,10 +964,6 @@
 				"metadata": {
 					"saveOutput": true,
 					"enableDebugMode": false,
-					"kernelspec": {
-						"name": "synapse_pyspark",
-						"display_name": "Synapse PySpark"
-					},
 					"language_info": {
 						"name": "python"
 					},
@@ -816,12 +974,14 @@
 						"endpoint": "https://yuanxiasynwssea01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool01",
 						"auth": {
 							"type": "AAD",
-							"authResource": "https://dev.azuresynapse.net"
+							"authResource": "https://dev.azuresynapse.net",
+							"authHeader": null
 						},
 						"sparkVersion": "3.4",
 						"nodeCount": 10,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"extraHeader": null
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -863,6 +1023,93 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/Notebook 3')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"nbformat": 4,
+				"nbformat_minor": 2,
+				"bigDataPool": {
+					"referenceName": "sparkpool01",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2",
+						"spark.autotune.trackingId": "bdab0144-1ce3-4875-ad9b-dda1845a5124"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"enableDebugMode": false,
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "sql"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/84a77243-5e65-47ac-bffc-0bb77428e6c9/resourceGroups/rg-bigdata-sea-01/providers/Microsoft.Synapse/workspaces/yuanxiasynwssea01/bigDataPools/sparkpool01",
+						"name": "sparkpool01",
+						"type": "Spark",
+						"endpoint": "https://yuanxiasynwssea01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool01",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.4",
+						"nodeCount": 10,
+						"cores": 4,
+						"memory": 28,
+						"automaticScaleJobs": false
+					},
+					"sessionKeepAliveTimeout": 30
+				},
+				"cells": [
+					{
+						"cell_type": "code",
+						"metadata": {
+							"collapsed": false
+						},
+						"source": [
+							"create database altertestdb;"
+						],
+						"outputs": [],
+						"execution_count": 2
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"collapsed": false
+						},
+						"source": [
+							"create table altertestdb.table1(c1 int)"
+						],
+						"outputs": [],
+						"execution_count": 3
+					},
+					{
+						"cell_type": "code",
+						"metadata": {},
+						"source": [
+							"ALTER table altertestdb.table1 add column c2 int"
+						],
+						"outputs": [],
+						"execution_count": null
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Database1')]",
 			"type": "Microsoft.Synapse/workspaces/databases",
 			"apiVersion": "2019-06-01-preview",
@@ -889,7 +1136,7 @@
 								}
 							},
 							"PublishStatus": "PUBLISHED",
-							"ObjectVersion": 6,
+							"ObjectVersion": 8,
 							"ObjectId": "ecd8bc52-fbfe-47b4-9079-2bd3bd3430d5"
 						},
 						"Source": {
@@ -902,29 +1149,32 @@
 						"NewEntity": {
 							"Name": "MarsTest",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "0e6f10ca-314d-4d66-b8a9-7680d95871cd",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -956,17 +1206,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "357d17ea-e645-4f67-a7b0-7ae08cd6a9cb",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1065,7 +1332,7 @@
 								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}",
 								"spark.sql.partitionProvider": "catalog"
 							},
-							"ObjectVersion": 6,
+							"ObjectVersion": 7,
 							"ObjectId": "2d065632-f732-4a61-b48b-3aa13765af26",
 							"Description": ""
 						},
@@ -1079,29 +1346,32 @@
 						"NewEntity": {
 							"Name": "Table_10",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "5773afa5-9791-415a-a865-94f6556c8ff7",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1133,17 +1403,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "8673cd71-1642-4b9b-b135-9d74edb7af7f",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1155,29 +1442,32 @@
 						"NewEntity": {
 							"Name": "Table_11",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "4619fd91-92ad-4466-a067-7eee524412ec",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1209,17 +1499,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "8291898c-0b78-4d7e-98b4-ad09eaa28e68",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1231,29 +1538,32 @@
 						"NewEntity": {
 							"Name": "Table_2",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": false,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "8f49b6ae-30e3-45df-935b-78949a60b1df",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1285,17 +1595,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "Column_1",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "953b67c7-4105-4864-a507-b46441668996",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1307,29 +1634,32 @@
 						"NewEntity": {
 							"Name": "Table_3",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "efbe7473-77db-4f4c-997e-5bf9cffbdf1b",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1361,17 +1691,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "e8c0582f-f2f9-43a3-b9da-e84bb261c796",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1383,29 +1730,32 @@
 						"NewEntity": {
 							"Name": "Table_4",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "b12797e8-bbad-4b35-9bf1-326506d3db13",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1437,17 +1787,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "838ed04a-cafa-4a2b-84ea-2b2ca1406a06",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1459,29 +1826,32 @@
 						"NewEntity": {
 							"Name": "Table_5",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "65ab5a54-d3a7-4d35-9b2e-d9e5bc91c2eb",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1513,17 +1883,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "6aca8c70-39d6-4da0-bbdf-09be6fd71fac",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1535,29 +1922,32 @@
 						"NewEntity": {
 							"Name": "Table_6",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "f2486ed3-b860-4ea9-8a50-ab0d1966172e",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1589,17 +1979,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "75b43582-c8d5-4b6d-84e0-fa899d4a9305",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1611,29 +2018,32 @@
 						"NewEntity": {
 							"Name": "Table_7",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "e2543426-caae-416a-9e5e-4d1b7e41c90f",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1665,17 +2075,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "0e01f3aa-95b0-4579-8dc7-adab382ac531",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1687,29 +2114,32 @@
 						"NewEntity": {
 							"Name": "Table_8",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "323bf96c-7168-41b7-a32f-32b4723851cf",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1741,17 +2171,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "c72dc602-6b8a-471b-a150-749e0383e805",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1763,29 +2210,32 @@
 						"NewEntity": {
 							"Name": "Table_9",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database1"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database1",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "06b276f5-f34e-44d8-b255-fd2b7be533b3",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1817,17 +2267,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "abac9f09-c726-4fbe-8c50-a9b96370ec9a",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1862,7 +2329,10 @@
 									"FormatType": "csv",
 									"LinkedServiceName": "yuanxiasynwssea01-WorkspaceDefaultStorage"
 								}
-							}
+							},
+							"PublishStatus": "PUBLISHED",
+							"ObjectVersion": 2,
+							"ObjectId": "40c152c5-0608-43c1-a5a6-e4d046999723"
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1874,29 +2344,32 @@
 						"NewEntity": {
 							"Name": "Table_1",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database2"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database2",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "35529c2f-3263-4476-b10f-dda67a5fc519",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -1928,17 +2401,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "83464f14-4212-4ea8-a8a9-24327ed4d875",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -1950,29 +2440,32 @@
 						"NewEntity": {
 							"Name": "Table_2",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database2"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database2",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "5c54c006-1944-46d2-80b6-245c846c4a40",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -2004,17 +2497,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "a00cb43a-a0fa-4c15-a02f-150f200b68bb",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -2026,29 +2536,32 @@
 						"NewEntity": {
 							"Name": "Table_3",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database2"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database2",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "e435c18a-cf5a-403e-bdf2-3accdb061b64",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -2080,17 +2593,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "65e8585e-a0ba-480d-a914-48d62b992aa2",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -2102,29 +2632,32 @@
 						"NewEntity": {
 							"Name": "Table_4",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database2"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database2",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "885f3fdd-fcc6-4c82-897c-207fd33fc9c9",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -2156,17 +2689,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "3e7c551a-640b-485d-8a94-44d2bca58e51",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -2201,7 +2751,10 @@
 									"FormatType": "csv",
 									"LinkedServiceName": "yuanxiasynwssea01-WorkspaceDefaultStorage"
 								}
-							}
+							},
+							"PublishStatus": "PUBLISHED",
+							"ObjectVersion": 2,
+							"ObjectId": "cb1dee02-b8ca-4883-9c05-ae87eedfc696"
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -2213,18 +2766,18 @@
 						"NewEntity": {
 							"Name": "Table_1",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database3"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database3",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -2236,6 +2789,7 @@
 										}
 									}
 								],
+								"ColumnSetEntityName": "9cc8de05-4577-43ba-adf8-7333bd5500ca",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -2267,17 +2821,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "9e7b220b-8282-4ac9-bcd1-2a4b7713f35a",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -2289,29 +2860,32 @@
 						"NewEntity": {
 							"Name": "Table_2",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "Database3"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "Database3",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "Column_1",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "5bb1ed36-7ade-46c3-a5ab-efe67a64bbea",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -2343,17 +2917,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"Column_1\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "d92407eb-86e5-42ab-9600-348f3896893c",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -2425,25 +3016,6 @@
 			},
 			"dependsOn": [],
 			"location": "southeastasia"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/DataLake')]",
-			"type": "Microsoft.Synapse/workspaces/linkedServices",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('DataLake_properties_typeProperties_url')]"
-				},
-				"connectVia": {
-					"referenceName": "AutoResolveIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
-			]
 		}
 	]
 }
