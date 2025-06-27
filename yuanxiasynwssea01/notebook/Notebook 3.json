@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "16ffab7d-3cbf-4790-ae3e-449dc241f205"
+				"spark.autotune.trackingId": "2c9882da-e796-41e6-bf5e-eecb5f634538"
 			}
 		},
 		"metadata": {
@@ -51,6 +51,20 @@
 			{
 				"cell_type": "code",
 				"metadata": {
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark\n",
+					"\n",
+					"print(\"hello\")"
+				],
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
 					"collapsed": false
 				},
 				"source": [
@@ -74,6 +88,44 @@
 					"ALTER table altertestdb.table1 add column c2 int"
 				],
 				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"create table altertestdb.table2(c1 int);\n",
+					"insert into altertestdb.table2 values (1);\n",
+					"insert into altertestdb.table2 values (2);\n",
+					"select * from altertestdb.table2;"
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"create table altertestdb.table2_temp(c1 int, c2 int);\n",
+					"insert into altertestdb.table2_temp select c1, null as c2 from altertestdb.table2;\n",
+					"alter table altertestdb.table2 rename to table2_old;\n",
+					"alter table altertestdb.table2_temp rename to table2;\n",
+					""
+				],
+				"execution_count": 8
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"select * from altertestdb.table2;\n",
+					"select * from altertestdb.table2_old;"
+				],
+				"execution_count": 9
 			}
 		]
 	}
